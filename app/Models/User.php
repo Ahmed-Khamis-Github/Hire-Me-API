@@ -52,11 +52,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function profile()
-    {
-        return $this->hasOne(Profile::class) ;
-    }
-
+  
     public function histories(){
         return $this->hasMany(History::class) ;
     }

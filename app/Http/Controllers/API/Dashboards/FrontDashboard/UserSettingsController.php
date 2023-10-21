@@ -4,15 +4,18 @@ namespace App\Http\Controllers\API\Dashboards\FrontDashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
-class SettingsController extends Controller
+
+class UserSettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        //
+
+
     }
 
     /**
@@ -36,7 +39,10 @@ class SettingsController extends Controller
      */
     public function show(string $id)
     {
-        //
+            //   $user = User::findOrFail(Auth::user()->id);
+      $user = User::findOrFail($id);
+
+      return $user;
     }
 
     /**
@@ -52,7 +58,12 @@ class SettingsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->update($request->all());
+
+        return $user  ; 
+
     }
 
     /**

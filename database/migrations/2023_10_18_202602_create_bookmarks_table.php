@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bookmarks', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained('profiles')->cascadeOnDelete()->cascadeOnUpdate() ;
-            $table->foreignId('job_id')->constrained('profiles')->cascadeOnDelete()->cascadeOnUpdate() ;
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate() ;
+            $table->foreignId('job_id')->constrained('jobs')->cascadeOnDelete()->cascadeOnUpdate() ;
             $table->unique(['user_id', 'job_id']);
 
         });

@@ -4,28 +4,16 @@ namespace App\Http\Controllers\API\Dashboards\FrontDashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\helpers\ApiResponse;
-use App\Http\Resources\jobs_candidates_settings\CandidatesResource;
+use App\Models\Company;
 
-class CandidatesController extends Controller
+
+class CompanySettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-     
-        $users = User::with('profile')->get();
-        
-        // $data =  candidatesResource::collection($users);
-        // dd($data);
-        // return ApiResponse::sendResponse(200, "", $data);
-
-        return $users ;
-
-
-    
     }
 
     /**
@@ -49,7 +37,10 @@ class CandidatesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
+        $company = Company::findOrFail($id);
+
+        return $company;
     }
 
     /**
@@ -65,7 +56,11 @@ class CandidatesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $company = Company::findOrFail($id);
+
+        $company->update($request->all());
+
+        return $company  ; 
     }
 
     /**

@@ -14,6 +14,10 @@ use Illuminate\Http\Request ;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Authentication\StripeController ;
 use App\Http\Controllers\API\Front\JobsController;
+use App\Http\Controllers\API\Dashboards\FrontDashboard\JobController;
+use App\Http\Controllers\API\Dashboards\FrontDashboard\CandidatesController;
+use App\Http\Controllers\API\Dashboards\FrontDashboard\UserSettingsController;
+use App\Http\Controllers\API\Dashboards\FrontDashboard\CompanySettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,5 +61,14 @@ Route::post('/stripe',[StripeController::class,'paymentStripe']);
 
 /////////////////////////////////End Of routes /////////////////////////////////////////////////
 
-Route::get('jobs',[JobsController::class,'index']) ;
- 
+// jobs & candidates (amany)
+  
+Route::resource('jobs', JobController::class);
+Route::resource('candidates', CandidatesController::class);
+
+//settings (amany) 
+
+Route::resource('userSettings', UserSettingsController::class);
+
+Route::resource('companySettings', CompanySettingsController::class);
+Route::put('companySettings', [CompanySettingsController::class , 'update']);
