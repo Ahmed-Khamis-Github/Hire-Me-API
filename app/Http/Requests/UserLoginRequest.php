@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Helpers\ApiResponse;
+use App\helpers\ApiResponse;
 use Illuminate\Contracts\Validation\Validator;
  use Illuminate\Validation\ValidationException;
 class UserLoginRequest extends FormRequest

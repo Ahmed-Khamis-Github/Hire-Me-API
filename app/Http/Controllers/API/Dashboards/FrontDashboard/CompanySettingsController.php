@@ -5,15 +5,25 @@ namespace App\Http\Controllers\API\Dashboards\FrontDashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Company;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class CompanySettingsController extends Controller
 {
+
+    public function  __construct (){
+        $this->middleware('auth:sanctum');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $id = Auth::user()->id;
+        $company = Company::findOrFail($id);
+
+        return $company;
     }
 
     /**
@@ -35,9 +45,9 @@ class CompanySettingsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        
+        $id = Auth::user()->id;
         $company = Company::findOrFail($id);
 
         return $company;
@@ -56,6 +66,7 @@ class CompanySettingsController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $id = Auth::user()->id;
         $company = Company::findOrFail($id);
 
         $company->update($request->all());
