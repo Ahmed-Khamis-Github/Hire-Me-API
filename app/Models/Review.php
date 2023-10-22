@@ -13,3 +13,23 @@ class Review extends Model
 
  }
 
+
+     protected $fillable = [
+        'rating',
+        'name',
+        'title',
+        'comment',
+    ];
+
+     public function users()
+     {
+         return $this->hasMany(User::class)->withDefault([
+             'first name' => $this->first_name
+         ]);
+     }
+
+     public function company()
+     {
+         return $this->belongsTo(Company::class);
+     }
+ }

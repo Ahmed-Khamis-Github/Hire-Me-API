@@ -76,21 +76,26 @@ class User extends Authenticatable
 
     public function jobs(){
         return $this->belongsToMany(Job::class,'bookmarks') ;
-
     }
 
+
+    // public function Apply()
+    // {
+    //     return $this->belongsToMany(Job::class,
+    //     'job_user' ,
+    //     'user_id' ,
+    //     'job_id' ,
+    //     'id' ,
+    //     'id'
+    //     )->withPivot([]) ;
+
+    // }
 
     public function Apply()
-    {
-        return $this->belongsToMany(Job::class,
-        'job_user' ,
-        'user_id' ,
-        'job_id' ,
-        'id' ,
-        'id'
-        ) ;
+{
+    return $this->belongsToMany(Job::class, 'job_user');
+}
 
-    }
 
 
     

@@ -1,24 +1,34 @@
 <?php
 
 namespace App\Http\Controllers\API\Dashboards\FrontDashboard;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Http\Resources\jobs_candidates_settings\JobsResource;
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
+
 
 class JobController extends Controller
 {
+
+
+
+    public function  __construct (){
+        $this->middleware('auth:sanctum');
+    }
     /**
      * Display a listing of the resource.
+     * 
      */
     public function index()
     {
         // get all jobs
-
-        $jobs = JobsResource::collection(Job::all());
-        return ApiResponse::sendResponse(200, "", $jobs);
+        $user = Auth::user();
+        $jobs = Job::where('company_id', $user->id)->get();
+        $data = JobsResource::collection($jobs);
+        return ApiResponse::sendResponse(200, "", $data);
 
     }
 
@@ -35,8 +45,16 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //new job
+        
+        $user= Auth::user();
+        // dd($user);
+        $request ->merge([
+            'company_id'=>$user->id
+        ]);
         $data = $request->all();
+
+        // $data->company_id= Auth::id();
+        // dd($data);
         Job::create($data);
 
         

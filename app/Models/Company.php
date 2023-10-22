@@ -37,6 +37,6 @@ class Company   extends Authenticatable
 
     public function users()
     {
-        return $this->belongsToMany(User::class,'reviews') ;
+        return $this->belongsToMany(User::class,'reviews')->withPivot(['rating', 'title', 'comment', 'user_id']);
     }
 }

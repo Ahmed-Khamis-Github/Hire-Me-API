@@ -18,12 +18,14 @@ class CandidatesResource extends JsonResource
             'f-name'=>$this->first_name ,
             'l-name'=>$this->last_name ,
             'email'=>$this->email ,
-            'logo'=>$this->profile->avatar,
-            'mobile'=>$this->profile->mobile_number,
-            'nationality'=>$this->profile->nationality,
+            'logo'=>$this->avatar,
+            'mobile'=>$this->mobile_number,
+            'nationality'=>$this->nationality,
             'cv'=>$this->cv,
+            // 'company'=>$this->Apply->company_id,
+            // 'job'=>$this->Apply->job_id,
 
-            
+
         ];
 }
 }

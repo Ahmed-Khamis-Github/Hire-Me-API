@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Social extends Model
+class JobUser extends Model
 {
     use HasFactory;
-
-    public function user()
-    {
-        return $this->belongsTo(user::class);
-    }
+    protected $table = 'job_user';
+    
+    protected  $fillable = [
+        'job_id',
+        'user_id',
+        
+    ];
 }

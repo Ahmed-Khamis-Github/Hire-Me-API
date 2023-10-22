@@ -31,23 +31,32 @@ class Job extends Model
         return $this->belongsTo(Category::class) ;
     }
 
-    public function Apply()
-    {
-        return $this->belongsToMany(User::class,
-        'job_user' ,
-        'job_id' ,
-        'user_id' ,
-        'id' ,
-        'id'
-        ) ;
+    // public function Apply()
+    // {
+    //     return $this->belongsToMany(User::class,
+    //     'job_user' ,
+    //     'job_id' ,
+    //     'user_id' ,
+    //     'id' ,
+    //     'id'
+    //     ) ;
 
-    }
+    // }
+
+    public function Apply()
+{
+    return $this->belongsToMany(User::class, 'job_user');
+}
+
 
 
     public function users(){
         return $this->belongsToMany(User::class,'bookmarks') ;
     }
 
-    
-    
+    public function isBookmarked()
+    {
+        // Check if the authenticated user has bookmarked this job
+        return $this->users()->where('user_id', auth()->id())->exists();
+    }
 }
