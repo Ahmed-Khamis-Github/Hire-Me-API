@@ -5,16 +5,25 @@ namespace App\Http\Controllers\API\Dashboards\FrontDashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserSettingsController extends Controller
 {
+
+    public function  __construct (){
+        $this->middleware('auth:sanctum');
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index($id)
+    public function index()
+
     {
 
+        $user = Auth::user();
+
+        return $user;
 
     }
 
@@ -58,6 +67,7 @@ class UserSettingsController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $id = Auth::user()->id;
         $user = User::findOrFail($id);
 
         $user->update($request->all());
