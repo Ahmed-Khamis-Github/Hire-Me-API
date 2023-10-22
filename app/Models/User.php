@@ -52,11 +52,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function profile()
-    {
-        return $this->hasOne(Profile::class) ;
-    }
-
+  
     public function histories(){
         return $this->hasMany(History::class) ;
     }
@@ -83,17 +79,23 @@ class User extends Authenticatable
     }
 
 
-    public function Apply()
-    {
-        return $this->belongsToMany(Job::class,
-        'job_user' ,
-        'user_id' ,
-        'job_id' ,
-        'id' ,
-        'id'
-        ) ;
+    // public function Apply()
+    // {
+    //     return $this->belongsToMany(Job::class,
+    //     'job_user' ,
+    //     'user_id' ,
+    //     'job_id' ,
+    //     'id' ,
+    //     'id'
+    //     )->withPivot([]) ;
 
-    }
+    // }
+
+    public function Apply()
+{
+    return $this->belongsToMany(Job::class, 'job_user');
+}
+
 
 
     

@@ -23,6 +23,11 @@ return new class extends Migration
             $table->string('company_name')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            
+            $table->string('mobile_number')->nullable();
+            $table->string('nationality')->nullable();
+            $table->boolean('verified')->default(false);
+          
             $table->rememberToken();
             $table->timestamps();
         });

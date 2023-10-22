@@ -9,6 +9,18 @@ class Job extends Model
 {
     use HasFactory;
 
+    protected $fillable =[
+        'name',
+        'min_salary',
+        'max_salary',
+        'location',
+        'type',
+        'category_id',
+        'company_id',
+        'about',
+
+    ];
+
     public function company()
     {
         return $this->belongsTo(Company::class) ;
@@ -19,17 +31,23 @@ class Job extends Model
         return $this->belongsTo(Category::class) ;
     }
 
-    public function Apply()
-    {
-        return $this->belongsToMany(User::class,
-        'job_user' ,
-        'job_id' ,
-        'user_id' ,
-        'id' ,
-        'id'
-        ) ;
+    // public function Apply()
+    // {
+    //     return $this->belongsToMany(User::class,
+    //     'job_user' ,
+    //     'job_id' ,
+    //     'user_id' ,
+    //     'id' ,
+    //     'id'
+    //     ) ;
 
-    }
+    // }
+
+    public function Apply()
+{
+    return $this->belongsToMany(User::class, 'job_user');
+}
+
 
 
     public function users(){

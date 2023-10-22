@@ -1,24 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\API\Front;
+namespace App\Http\Controllers\API\Dashboards\FrontDashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Profile;
-use App\Models\skill;
-use App\helpers\ApiResponse;
-use App\Http\Resources\EmployeeProfile\EmployeeResource;
+use App\Models\Company;
+use Illuminate\Support\Facades\Auth;
 
 
-class EmployeeProfileController extends Controller
+
+class CompanySettingsController extends Controller
 {
+
+    public function  __construct (){
+        $this->middleware('auth:sanctum');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $id = Auth::user()->id;
+        $company = Company::findOrFail($id);
+
+        return $company;
     }
 
     /**
@@ -40,12 +45,12 @@ class EmployeeProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
+        $id = Auth::user()->id;
+        $company = Company::findOrFail($id);
 
-        $user = User::with('skills','socials','histories')->findOrFail($id);
-        $profile = new EmployeeResource($user);
-       return ApiResponse::sendResponse(202,"",$profile);
+        return $company;
     }
 
     /**
@@ -55,12 +60,18 @@ class EmployeeProfileController extends Controller
     {
         //
     }
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $id = Auth::user()->id;
+        $company = Company::findOrFail($id);
+
+        $company->update($request->all());
+
+        return $company  ; 
     }
 
     /**
