@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request ;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Authentication\CompanyLogin;
 use App\Http\Controllers\API\Authentication\CompanyRegister;
 use App\Http\Controllers\API\Authentication\EmailVerification;
@@ -10,9 +12,10 @@ use App\Http\Controllers\API\Authentication\UserLogin;
 use App\Http\Controllers\API\Authentication\UserLogout;
 use App\Http\Controllers\API\Authentication\UserRegister;
 use App\Http\Controllers\API\Authentication\UserSendResetEmail;
-use Illuminate\Http\Request ;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Authentication\StripeController ;
+use App\Http\Controllers\API\Front\CompanyProfileController;
+use App\Http\Controllers\API\Front\CompaniesController;
+use App\Http\Controllers\API\Front\JobProfileController;
 use App\Http\Controllers\API\Front\JobsController;
 
 /*
@@ -57,5 +60,24 @@ Route::post('/stripe',[StripeController::class,'paymentStripe']);
 
 /////////////////////////////////End Of routes /////////////////////////////////////////////////
 
-Route::get('jobs',[JobsController::class,'index']) ;
- 
+//  <!-- browse companies routes / Start -->
+Route::get('/companies', [CompaniesController::class, 'index']); //done
+//  <!-- browse companies routes / End -->
+
+//  <!-- browse companies routes / Start -->
+Route::get('/jobs', [JobsController::class, 'index']);
+//  <!-- browse companies routes / End -->
+
+//  <!-- company profile routes / Start -->
+Route::get('/companies/{id}', [CompanyProfileController::class, 'show']); //done
+Route::post('/companies/{id}/share', [CompanyProfileController::class, 'share']); //done
+Route::post('/companies/{id}/review', [CompanyProfileController::class, 'addReview']); //done
+Route::post('/companies/{id}/bookmark/{jobId}', [CompanyProfileController::class, 'bookmarkJob']); //done
+//  <!-- company profile routes / End -->
+
+//  <!-- job profile routes / Start -->
+Route::get('/jobs/{id}', [JobProfileController::class, 'show']); //done
+Route::post('/jobs/{id}/share', [JobProfileController::class, 'share']); //done
+Route::post('/jobs/{id}/apply', [JobProfileController::class, 'apply']); //done
+Route::post('/jobs/{id}/bookmark', [JobProfileController::class, 'bookmark']); //done
+//  <!-- job profile routes / End -->

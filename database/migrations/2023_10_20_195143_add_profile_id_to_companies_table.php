@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bookmarks', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate() ;
-            $table->foreignId('job_id')->constrained('jobs')->cascadeOnDelete()->cascadeOnUpdate() ;
-            $table->unique(['user_id', 'job_id']);
-
+        Schema::table('companies', function (Blueprint $table) {
+            $table->foreignId('profile_id')->nullable()->constrained('profiles')->cascadeOnDelete()->cascadeOnUpdate() ;
         });
     }
 
@@ -24,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bookmarks');
+        Schema::table('companies', function (Blueprint $table) {
+            $table->dropForeign(['profile_id']);
+            $table->dropColumn('profile_id') ;
+        });
     }
 };
