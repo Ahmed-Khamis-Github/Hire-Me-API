@@ -19,6 +19,10 @@ use App\Http\Controllers\API\Dashboards\FrontDashboard\CandidatesController;
 use App\Http\Controllers\API\Dashboards\FrontDashboard\UserSettingsController;
 use App\Http\Controllers\API\Dashboards\FrontDashboard\CompanySettingsController;
 
+//front-dashboard interfaces
+use  App\Http\Controllers\API\Dashboards\FrontDashboard\DashboardHomeController;
+use App\Http\Controllers\API\Dashboards\FrontDashboard\ReviewsController;
+use App\Http\Controllers\API\Dashboards\FrontDashboard\BookmarksController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,9 +38,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//                   <!-- Public --> 
+//                   <!-- Public -->
 
-// authentication routes 
+// authentication routes
 Route::post('employee-register', [UserRegister::class, 'register']);
 Route::post('company-register', [CompanyRegister::class, 'register']);
 Route::post('employee-login', [UserLogin::class, 'login']);
@@ -48,7 +52,7 @@ Route::post('user/reset-password', [UserForgetPass::class, 'passwordReset']);
 Route::post('company/reset-password', [UserForgetPass::class, 'passwordReset']);
 Route::post('user/email-verification', [EmailVerification::class, 'emailVerify']);
 Route::post('company/email-verification', [EmailVerification::class, 'emailVerify']) ;
- 
+
 Route::get('user/email-verification', [EmailVerification::class, 'resendEmailVerify'])
     ->middleware(['auth:sanctum']);
 
@@ -60,15 +64,22 @@ Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback'
 Route::post('/stripe',[StripeController::class,'paymentStripe']);
 
 /////////////////////////////////End Of routes /////////////////////////////////////////////////
+//front-dashboard routes
+//only middleware is left for the routes
+//home
+Route::resource('dashboard-home', DashboardHomeController::class);
+//reviews
+Route::resource('dashboard-reviews', ReviewsController::class);
+Route::resource('dashboard-bookmarks', BookmarksController::class);
+
 
 // jobs & candidates (amany)
-  
+
 Route::resource('jobs', JobController::class);
 Route::resource('candidates', CandidatesController::class);
 
-//settings (amany) 
+//settings (amany)
 
 Route::resource('userSettings', UserSettingsController::class);
-
 Route::resource('companySettings', CompanySettingsController::class);
 Route::put('companySettings', [CompanySettingsController::class , 'update']);
