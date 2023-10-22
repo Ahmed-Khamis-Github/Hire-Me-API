@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\helpers\ApiResponse;
 use App\Models\User;
-use App\Http\Resources\EmployeeProfile\EmployeeResource;
 use App\Http\Resources\EmployeeProfile\SocialResource;
 use App\Http\Resources\EmployeeProfile\HistoryResource;
 class EmployeeResource extends JsonResource
