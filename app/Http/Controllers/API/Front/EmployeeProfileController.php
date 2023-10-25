@@ -4,6 +4,12 @@ namespace App\Http\Controllers\API\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Profile;
+use App\Models\skill;
+use App\helpers\ApiResponse;
+use App\Http\Resources\EmployeeProfile\EmployeeResource;
+
 
 class EmployeeProfileController extends Controller
 {
@@ -36,7 +42,10 @@ class EmployeeProfileController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $user = User::with('skills','socials','histories')->findOrFail($id);
+        $profile = new EmployeeResource($user);
+       return ApiResponse::sendResponse(202,"",$profile);
     }
 
     /**
@@ -46,7 +55,6 @@ class EmployeeProfileController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      */

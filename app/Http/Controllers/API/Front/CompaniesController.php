@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\API\Front;
 
+use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Front\BrowseCompaniesResource;
+use App\Models\Company;
+use App\Models\Review;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class CompaniesController extends Controller
@@ -12,7 +17,11 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        //
+        $companies = Company::with('users')->get();
+
+        $formattedCompanies = BrowseCompaniesResource::collection($companies);
+    
+        return ApiResponse::sendResponse(200, '', $formattedCompanies);
     }
 
     /**
@@ -38,6 +47,7 @@ class CompaniesController extends Controller
     {
         //
     }
+    
 
     /**
      * Show the form for editing the specified resource.
