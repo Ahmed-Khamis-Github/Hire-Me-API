@@ -16,13 +16,13 @@ class JobsResource extends JsonResource
     {
         return [
             'title'=>$this->name ,
-            // 'created_at'=>$this->created_at ,
+            'created_at'=>$this->created_at ,
             'min-salary'=>$this->min_salary ,
             'max-salary'=>$this->max_salary ,
-            // 'logo'=>$this->company->logo,
+            'logo'=>$this->company->logo,
             'type'=>$this->type,
             'location'=>$this->company->location,
-            // 'about'=>$this->company->about,
+            'about'=>$this->company->about,
         ];
     }
 }
