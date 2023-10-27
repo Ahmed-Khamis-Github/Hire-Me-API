@@ -19,14 +19,14 @@ class CompanyLogin extends Controller
         if (Auth::guard('company')->attempt($credentials)) {
             $user = Auth::guard('company')->user();
             $user->tokens()->delete();
- 
+
             $data['token'] = $user->createToken('companyLogin',['company'])->plainTextToken;
             $data['company_name'] = $user->company_name;
-            $data['email'] = $user->email;;
+            $data['email'] = $user->email;
             return ApiResponse::sendResponse(200, 'Login Successfully', $data);
         } else {
             return ApiResponse::sendResponse(401, 'Error with your credentials', null);
         }
      }
-     //error response / data errors 
+     //error response / data errors
 }

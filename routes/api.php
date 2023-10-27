@@ -13,6 +13,7 @@ use App\Http\Controllers\API\Authentication\UserLogout;
 use App\Http\Controllers\API\Authentication\UserRegister;
 use App\Http\Controllers\API\Authentication\UserSendResetEmail;
 use App\Http\Controllers\API\Authentication\StripeController ;
+use App\Http\Controllers\API\Authentication\UserController;
 use App\Http\Controllers\API\Front\CompanyProfileController;
 use App\Http\Controllers\API\Front\CompaniesController;
 use App\Http\Controllers\API\Front\JobProfileController;
@@ -70,6 +71,10 @@ Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'
 Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback']) ;
 Route::post('/stripe',[StripeController::class,'paymentStripe']);
 
+
+
+
+
 /////////////////////////////////End Of routes /////////////////////////////////////////////////
 //front-dashboard routes
 //only middleware is left for the routes
@@ -78,6 +83,7 @@ Route::resource('dashboard-home', DashboardHomeController::class);
 //reviews
 Route::resource('dashboard-reviews', ReviewsController::class);
 Route::resource('dashboard-bookmarks', BookmarksController::class);
+Route::post('get-user-type', [UserSettingsController::class,'getUserType']);
 
 
 // jobs & candidates (amany)
