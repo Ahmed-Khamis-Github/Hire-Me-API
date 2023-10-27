@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Job;
 use App\Models\JobUser;
-use App\Helpers\ApiResponse;
+use App\helpers\ApiResponse;
 use App\Http\Resources\jobs_candidates_settings\CandidatesResource;
 
 class CandidatesController extends Controller
