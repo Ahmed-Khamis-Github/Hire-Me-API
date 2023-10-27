@@ -13,6 +13,7 @@ use App\Http\Controllers\API\Authentication\UserLogout;
 use App\Http\Controllers\API\Authentication\UserRegister;
 use App\Http\Controllers\API\Authentication\UserSendResetEmail;
 use App\Http\Controllers\API\Authentication\StripeController ;
+use App\Http\Controllers\API\Authentication\UserController;
 use App\Http\Controllers\API\Front\CompanyProfileController;
 use App\Http\Controllers\API\Front\CompaniesController;
 use App\Http\Controllers\API\Front\JobProfileController;
@@ -72,6 +73,38 @@ Route::post('/stripe',[StripeController::class,'paymentStripe']);
 
 
 
+
+
+/////////////////////////////////End Of routes /////////////////////////////////////////////////
+//front-dashboard routes
+//only middleware is left for the routes
+//home
+Route::resource('dashboard-home', DashboardHomeController::class);
+//reviews
+Route::resource('dashboard-reviews', ReviewsController::class);
+Route::resource('dashboard-bookmarks', BookmarksController::class);
+Route::post('get-user-type', [UserSettingsController::class,'getUserType']);
+
+
+// jobs & candidates (amany)
+
+Route::resource('jobs', JobController::class);
+Route::resource('candidates', CandidatesController::class);
+
+//settings (amany)
+
+Route::resource('userSettings', UserSettingsController::class);
+Route::resource('companySettings', CompanySettingsController::class);
+Route::put('companySettings', [CompanySettingsController::class , 'update']);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//route of Home
+
+Route::get('Home/categories',[HomeController::class,'categories']);
+Route::get('Home/jobs',[HomeController::class,'jobs']);
+Route::get('Home/cities',[HomeController::class,'listCities']);
+Route::get('Home/listJob',[HomeController::class,'listJob']) ;
+Route::get('Home/search',[HomeController::class,'search']);
+
 //////////////////////////////////////////////
 //route of profile user
 Route::get('/profile/{id}',[EmployeeProfileController::class,'show']);
@@ -100,50 +133,3 @@ Route::get('/job-profile/{id}', [JobProfileController::class, 'show']); //done
 Route::post('/job-profile/{id}/apply', [JobProfileController::class, 'apply']); //done
 Route::post('/job-profile/{id}/bookmark', [JobProfileController::class, 'bookmark']); //done
 //  <!-- job profile routes / End -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/////////////////////////////////End Of routes /////////////////////////////////////////////////
-//front-dashboard routes
-//only middleware is left for the routes
-//home
-// Route::resource('dashboard-home', DashboardHomeController::class);
-// //reviews
-// Route::resource('dashboard-reviews', ReviewsController::class);
-// Route::resource('dashboard-bookmarks', BookmarksController::class);
-
-
-// // jobs & candidates (amany)
-
-// Route::resource('jobs', JobController::class);
-// Route::resource('candidates', CandidatesController::class);
-
-// //settings (amany)
-
-// Route::resource('userSettings', UserSettingsController::class);
-// Route::resource('companySettings', CompanySettingsController::class);
-// Route::put('companySettings', [CompanySettingsController::class , 'update']);
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//route of Home
-
-Route::get('Home/categories',[HomeController::class,'categories']);
-Route::get('Home/jobs',[HomeController::class,'jobs']);
-Route::get('Home/cities',[HomeController::class,'listCities']);
-Route::get('Home/listJob',[HomeController::class,'listJob']) ;
-Route::get('Home/search',[HomeController::class,'search']);

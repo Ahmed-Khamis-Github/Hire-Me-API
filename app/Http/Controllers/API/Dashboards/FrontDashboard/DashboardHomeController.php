@@ -21,6 +21,7 @@ class DashboardHomeController extends Controller
     }
     public function index()
     {
+        // return ApiResponse::sendResponse(200, 'Data found',  \request()->header());
         $user = Auth::user();
         $id = $user->id;
         if (isset($user->company_name)) {
@@ -36,7 +37,7 @@ class DashboardHomeController extends Controller
             } catch (\Exception $e) {
                 $reviewsNumber = 0;
             }
-        }else{
+        } else {
             //to get number of jobs applied for
             try {
                 $jobsNumber = $user->Apply()->count();

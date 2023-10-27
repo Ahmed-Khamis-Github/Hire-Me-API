@@ -14,7 +14,7 @@ class Review extends Model
         'name',
         'title',
         'comment',
-    ];
+    ];  
 
     public function users()
     {
