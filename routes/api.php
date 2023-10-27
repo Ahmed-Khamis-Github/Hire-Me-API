@@ -70,34 +70,7 @@ Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'
 Route::get('auth/{provider}/callback', [SocialLoginController::class, 'callback']) ;
 Route::post('/stripe',[StripeController::class,'paymentStripe']);
 
-/////////////////////////////////End Of routes /////////////////////////////////////////////////
-//front-dashboard routes
-//only middleware is left for the routes
-//home
-Route::resource('dashboard-home', DashboardHomeController::class);
-//reviews
-Route::resource('dashboard-reviews', ReviewsController::class);
-Route::resource('dashboard-bookmarks', BookmarksController::class);
 
-
-// jobs & candidates (amany)
-
-Route::resource('jobs', JobController::class);
-Route::resource('candidates', CandidatesController::class);
-
-//settings (amany)
-
-Route::resource('userSettings', UserSettingsController::class);
-Route::resource('companySettings', CompanySettingsController::class);
-Route::put('companySettings', [CompanySettingsController::class , 'update']);
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//route of Home
-
-Route::get('Home/categories',[HomeController::class,'categories']);
-Route::get('Home/jobs',[HomeController::class,'jobs']);
-Route::get('Home/cities',[HomeController::class,'listCities']);
-Route::get('Home/listJob',[HomeController::class,'listJob']) ;
-Route::get('Home/search',[HomeController::class,'search']);
 
 //////////////////////////////////////////////
 //route of profile user
@@ -108,19 +81,69 @@ Route::get('/companies', [CompaniesController::class, 'index']); //done
 //  <!-- browse companies routes / End -->
 
 //  <!-- browse companies routes / Start -->
-Route::get('/jobs', [JobsController::class, 'index']);
+Route::get('/jobs', [JobsController::class, 'index']); //done
+// Route::get('/jobs/sort', [JobsController::class, 'sort']); //done
+Route::get('/jobs/apply', [JobsController::class, 'applyFilters']); //done
+// Route::get('/jobs/page/{page}', [JobsController::class, 'indexPagination']);
 //  <!-- browse companies routes / End -->
 
 //  <!-- company profile routes / Start -->
 Route::get('/companies/{id}', [CompanyProfileController::class, 'show']); //done
-Route::post('/companies/{id}/share', [CompanyProfileController::class, 'share']); //done
+// Route::post('/companies/{id}/share', [CompanyProfileController::class, 'share']); //done
 Route::post('/companies/{id}/review', [CompanyProfileController::class, 'addReview']); //done
 Route::post('/companies/{id}/bookmark/{jobId}', [CompanyProfileController::class, 'bookmarkJob']); //done
 //  <!-- company profile routes / End -->
 
 //  <!-- job profile routes / Start -->
-Route::get('/jobs/{id}', [JobProfileController::class, 'show']); //done
-Route::post('/jobs/{id}/share', [JobProfileController::class, 'share']); //done
-Route::post('/jobs/{id}/apply', [JobProfileController::class, 'apply']); //done
-Route::post('/jobs/{id}/bookmark', [JobProfileController::class, 'bookmark']); //done
+Route::get('/job-profile/{id}', [JobProfileController::class, 'show']); //done
+// Route::post('/job-profile/{id}/share', [JobProfileController::class, 'share']); //done
+Route::post('/job-profile/{id}/apply', [JobProfileController::class, 'apply']); //done
+Route::post('/job-profile/{id}/bookmark', [JobProfileController::class, 'bookmark']); //done
 //  <!-- job profile routes / End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////End Of routes /////////////////////////////////////////////////
+//front-dashboard routes
+//only middleware is left for the routes
+//home
+// Route::resource('dashboard-home', DashboardHomeController::class);
+// //reviews
+// Route::resource('dashboard-reviews', ReviewsController::class);
+// Route::resource('dashboard-bookmarks', BookmarksController::class);
+
+
+// // jobs & candidates (amany)
+
+// Route::resource('jobs', JobController::class);
+// Route::resource('candidates', CandidatesController::class);
+
+// //settings (amany)
+
+// Route::resource('userSettings', UserSettingsController::class);
+// Route::resource('companySettings', CompanySettingsController::class);
+// Route::put('companySettings', [CompanySettingsController::class , 'update']);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//route of Home
+
+Route::get('Home/categories',[HomeController::class,'categories']);
+Route::get('Home/jobs',[HomeController::class,'jobs']);
+Route::get('Home/cities',[HomeController::class,'listCities']);
+Route::get('Home/listJob',[HomeController::class,'listJob']) ;
+Route::get('Home/search',[HomeController::class,'search']);
