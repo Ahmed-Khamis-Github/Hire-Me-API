@@ -15,7 +15,7 @@ class EmployeeSkills extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "skill-name"=>$this->name
+            "skill_name"=>$this->name
         ];
     }
 }

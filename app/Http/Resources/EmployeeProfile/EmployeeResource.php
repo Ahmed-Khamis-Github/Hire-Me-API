@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\helpers\ApiResponse;
 use App\Models\User;
+use App\Http\Resources\EmployeeProfile\EmployeeSkills;
 use App\Http\Resources\EmployeeProfile\SocialResource;
 use App\Http\Resources\EmployeeProfile\HistoryResource;
 class EmployeeResource extends JsonResource
@@ -18,17 +19,18 @@ class EmployeeResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "first-name" => $this->first_name,
-            "last-name" => $this->last_name,
+            "first_name" => $this->first_name,
+            "last_name" => $this->last_name,
             "verafied" => $this->verified,
-            "avatar" => $this->avatar,
-            "aboat" => $this->aboat,
             "title"=>$this->title,
+            "avatar" => $this->avatar,
+            "aboat" => $this->about,
+
             "nationality"=>$this->nationality,
             "cv"=>$this->cv,
 
-            'skill-name'=>EmployeeSkills::Collection($this->skills),
-            'social-link'=>SocialResource::Collection($this->socials),
+            'skill_name'=>EmployeeSkills::Collection($this->skills),
+            'social_link'=>SocialResource::Collection($this->socials),
             'history'=>HistoryResource::Collection($this->histories),
 
         ];

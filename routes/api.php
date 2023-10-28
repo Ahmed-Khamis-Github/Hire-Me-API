@@ -88,14 +88,15 @@ Route::post('get-user-type', [UserSettingsController::class,'getUserType']);
 
 // jobs & candidates (amany)
 
-Route::resource('jobs', JobController::class);
+Route::resource('getAllJobs', JobController::class);
 Route::resource('candidates', CandidatesController::class);
 
 //settings (amany)
 
-Route::resource('userSettings', UserSettingsController::class);
-Route::resource('companySettings', CompanySettingsController::class);
+Route::get('companySettings', [CompanySettingsController::class , 'index']);
 Route::put('companySettings', [CompanySettingsController::class , 'update']);
+Route::get('userSettings', [UserSettingsController::class , 'index']);
+Route::put('userSettings', [UserSettingsController::class , 'update']);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //route of Home
 
@@ -105,7 +106,7 @@ Route::get('Home/cities',[HomeController::class,'listCities']);
 Route::get('Home/listJob',[HomeController::class,'listJob']) ;
 Route::get('Home/search',[HomeController::class,'search']);
 
-//////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
 //route of profile user
 Route::get('/profile/{id}',[EmployeeProfileController::class,'show']);
 
