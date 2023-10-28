@@ -110,26 +110,22 @@ Route::get('Home/search',[HomeController::class,'search']);
 Route::get('/profile/{id}',[EmployeeProfileController::class,'show']);
 
 //  <!-- browse companies routes / Start -->
-Route::get('/companies', [CompaniesController::class, 'index']); //done
+Route::get('/companies', [CompaniesController::class, 'index']); 
 //  <!-- browse companies routes / End -->
 
 //  <!-- browse companies routes / Start -->
-Route::get('/jobs', [JobsController::class, 'index']); //done
-// Route::get('/jobs/sort', [JobsController::class, 'sort']); //done
-Route::get('/jobs/apply', [JobsController::class, 'applyFilters']); //done
-// Route::get('/jobs/page/{page}', [JobsController::class, 'indexPagination']);
+Route::get('/jobs', [JobsController::class, 'index']);
+Route::get('/jobs/apply', [JobsController::class, 'applyFilters']);
 //  <!-- browse companies routes / End -->
 
 //  <!-- company profile routes / Start -->
-Route::get('/companies/{id}', [CompanyProfileController::class, 'show']); //done
-// Route::post('/companies/{id}/share', [CompanyProfileController::class, 'share']); //done
-Route::post('/companies/{id}/review', [CompanyProfileController::class, 'addReview']); //done
-Route::post('/companies/{id}/bookmark/{jobId}', [CompanyProfileController::class, 'bookmarkJob']); //done
+Route::get('/companies/{id}', [CompanyProfileController::class, 'show']);
+Route::post('/companies/{id}/review', [CompanyProfileController::class, 'addReview']);
+Route::post('/companies/{id}/bookmark/{jobId}', [CompanyProfileController::class, 'bookmarkJob']);
 //  <!-- company profile routes / End -->
 
 //  <!-- job profile routes / Start -->
-Route::get('/job-profile/{id}', [JobProfileController::class, 'show']); //done
-// Route::post('/job-profile/{id}/share', [JobProfileController::class, 'share']); //done
-Route::post('/job-profile/{id}/apply', [JobProfileController::class, 'apply']); //done
-Route::post('/job-profile/{id}/bookmark', [JobProfileController::class, 'bookmark']); //done
+Route::get('/job-profile/{id}', [JobProfileController::class, 'show']);
+Route::post('/job-profile/{id}/apply', [JobProfileController::class, 'apply']);
+Route::post('/job-profile/{id}/bookmark', [JobProfileController::class, 'bookmark']);
 //  <!-- job profile routes / End -->
