@@ -18,7 +18,7 @@ class HistoryResource extends JsonResource
             "job_name"=>$this->job_name,
             "company_name"=> $this->company_name,
             "date_from"=>$this->date_from,
-            "date_to"=>$this->date_To,
+            "date_to"=>$this->date_to,
             "description"=>$this->description
         ];
     }

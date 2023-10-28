@@ -76,7 +76,7 @@ Route::resource('userSettings', UserSettingsController::class);
 
 Route::resource('companySettings', CompanySettingsController::class);
 Route::put('companySettings', [CompanySettingsController::class , 'update']);
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 //route of Home
 
 Route::get('Home/categories',[HomeController::class,'categories']);
@@ -85,6 +85,7 @@ Route::get('Home/cities',[HomeController::class,'listCities']);
 Route::get('Home/listJob',[HomeController::class,'listJob']) ;
 Route::get('Home/search',[HomeController::class,'search']);
 
-//////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
 //route of profile user
 Route::get('/profile/{id}',[EmployeeProfileController::class,'show']);
+/////////////////////////////////////////////////////////////////////////////////////

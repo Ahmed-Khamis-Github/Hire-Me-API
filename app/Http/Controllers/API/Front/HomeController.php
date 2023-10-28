@@ -68,4 +68,5 @@ class HomeController extends Controller
         return ApiResponse::sendResponse(200,"",$numberOfJobs);
     }
 
+
 }

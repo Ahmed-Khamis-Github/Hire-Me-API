@@ -16,7 +16,7 @@ class JobCitiesResource extends JsonResource
     {
 
         return[
-            "city" => $this->location,
+            "location" => $this->location,
         'number_of_jobs' => $this::where('location', $this->location)->count(),
 
         ];
