@@ -21,7 +21,8 @@ class JobResource extends JsonResource
             "created_at" => $this->created_at,
             "logo" => $this->company->logo,
             "company_name" => $this->company->company_name,
-            "location" => $this->company->location
+            "location" => $this->company->location,
+            "job_id"=>$this->id
         ];
         return $data;
     }

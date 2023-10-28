@@ -4,58 +4,31 @@ namespace App\Http\Controllers\API\Front;
 
 use App\helpers\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Front\JobsResource;
+use App\Http\Resources\Front\JobResource;
+use App\Models\Category;
 use App\Models\Job;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class JobsController extends Controller
 {
-    /**
+
+    public function  __construct (){
+        $this->middleware('auth:sanctum')->except(['index','applyFilters','sort','indexPagination']);
+    }
+    
+    /** 
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
+    { 
         try {
-            // Define the base query for job listings
-            $query = Job::query();
-
-            // Apply filters
-            if ($request->filled('location')) {
-                $query->where('location', $request->input('location'));
-            }
-
-            if ($request->filled('category')) {
-                $categories = $request->input('category');
-                $query->whereIn('category', $categories);
-            }
-
-            if ($request->filled('experience')) {
-                $experience = $request->input('experience');
-                $query->where('experience', $experience);
-            }
-
-            if ($request->filled('job_type')) {
-                $jobTypes = $request->input('job_type');
-                $query->whereIn('job_type', $jobTypes);
-            }
-
-            if ($request->filled('salary_range')) {
-                $salaryRange = json_decode($request->input('salary_range'));
-                $query->whereBetween('salary', [$salaryRange->min, $salaryRange->max]);
-            }
-
-            // Apply sorting 
-            $sort = $request->input('sort', 'relevance');
-            if ($sort === 'newest') {
-                $query->orderBy('created_at', 'desc');
-            } elseif ($sort === 'oldest') {
-                $query->orderBy('created_at', 'asc');
-            }
-
             // Paginate the results
-            $perPage = $request->input('per_page', 10);
-            $jobListings = $query->paginate($perPage);
+            // $perPage = $request->input('per_page', 10);
+            
+            // $jobListings = Job::orderBy('created_at', 'desc')->paginate($perPage);
+            $jobListings = Job::orderBy('created_at', 'desc');
+
 
             $formattedJobListings = JobResource::collection($jobListings);
 
@@ -67,60 +40,146 @@ class JobsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Applying filters to the job listing.
      */
-    public function create()
+    public function applyFilters(Request $request)
     {
-        //
+        // Define the base query for job listings
+        $query = Job::query();
+
+        // Apply filters
+        if ($request->filled('location')) {
+            $query->where('location', $request->input('location'));
+        }
+
+        if ($request->filled('category_name')) {
+            $categoryName = $request->input('category_name');
+        
+            // Find the category ID based on the category name
+            $categoryId = Category::where('name', $categoryName)->first();
+        
+            if ($categoryId) {
+                // Use the found category ID to filter jobs
+                $query->where('category_id', $categoryId->id);
+            } else {
+                return ApiResponse::sendResponse(404,'There are no category with that name.');
+            }
+        }
+        
+        if ($request->filled('experience')) {
+            $experience = $request->input('experience');
+            $query->where('experience', $experience);
+        }
+
+        if ($request->filled('type')) {
+            $jobTypes = $request->input('type');
+            
+            // The 'type' parameter is expected to be an array, but if it's a string, convert it to an array.
+            if (!is_array($jobTypes)) {
+              $jobTypes = [$jobTypes];
+            }
+            
+            $query->whereIn('type', $jobTypes);
+          }
+        
+        
+        // if ($request->filled('min_salary') && $request->input('max_salary') == 0) {
+        //     $minSalary = $request->input('min_salary');
+        //     $query->where('min_salary', '>=', $minSalary);
+        // }
+        
+        // if ($request->filled('max_salary')) {
+        //     $maxSalary = $request->input('max_salary');
+        //     $query->where('max_salary', '<=', $maxSalary);
+        // }
+
+        // if ($request->filled('min_salary') && $request->filled('max_salary')) {
+        //     $minSalary = $request->input('min_salary');
+        //     $maxSalary = $request->input('max_salary');
+        //     $query->whereRaw('(min_salary <= ? AND max_salary >= ?)', [$maxSalary, $minSalary]);
+        // }
+
+        if ($request->filled('min_salary') && $request->filled('max_salary')) {
+            $minSalary = $request->input('min_salary');
+            $maxSalary = $request->input('max_salary');
+            $query->where('min_salary', '>=', $minSalary)->where('max_salary', '<=', $maxSalary);
+        } elseif ($request->filled('min_salary')) {
+            $minSalary = $request->input('min_salary');
+            $query->where('min_salary', '>=', $minSalary);
+        } elseif ($request->filled('max_salary')) {
+            $maxSalary = $request->input('max_salary');
+            $query->where('max_salary', '<=', $maxSalary);
+        }
+        
+
+        // Sorting criteria
+        $sort = $request->input('sort');
+
+        if ($sort === 'newest') {
+            $query->orderBy('created_at', 'desc');
+        } elseif ($sort === 'oldest') {
+            $query->orderBy('created_at', 'asc');
+        }
+
+
+        // Paginate the filtered results
+        $perPage = $request->input('per_page', 10);
+        $jobListings = $query->paginate($perPage);
+
+        $formattedJobListings = JobResource::collection($jobListings);
+
+        // Format the filtered job listings
+        return ApiResponse::sendResponse(200, "", $formattedJobListings);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Sorting the job listing.
      */
-    public function store(Request $request)
+    // public function sort(Request $request)
+    // {
+    //     // Get the sorting criteria from the request
+    //     $sort = $request->input('sort');
+    
+    //     // Create a new query for jobs
+    //     $query = Job::query();
+    
+    //     // Apply sorting based on the chosen criteria
+    //     if ($sort === 'newest') {
+    //         $query->orderBy('created_at', 'desc');
+    //     } elseif ($sort === 'oldest') {
+    //         $query->orderBy('created_at', 'asc');
+    //     } 
+    //     // Retrieve the sorted jobs
+    //     $sortedJobs = $query->get();
+    //     return ApiResponse::sendResponse(200, '', $sortedJobs);
+    // }
+
+    /**
+     * Using the pagination
+     */
+    public function indexPagination($page)
     {
-        //
+        $perPage = 10;
+        // Retrieve the paginated list of jobs
+        $jobs = Job::paginate($perPage, ['*'], 'page', $page);
+        return ApiResponse::sendResponse(200,'', $jobs);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        try {
-            $job = Job::findOrFail($id);
+    // public function show(string $id)
+    // {
+    //     try {
+    //         $job = Job::findOrFail($id);
     
-            $jobData = new JobResource($job);
+    //         $jobData = new JobResource($job);
     
-            return ApiResponse::sendResponse(200, "", $jobData);
+    //         return ApiResponse::sendResponse(200, "", $jobData);
     
-        } catch (ModelNotFoundException $e) {
+    //     } catch (ModelNotFoundException $e) {
     
-            return ApiResponse::sendResponse(404, 'Job data not found');
-        }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    //         return ApiResponse::sendResponse(404, 'Job data not found');
+    //     }
+    // }
 }

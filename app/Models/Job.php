@@ -60,3 +60,4 @@ class Job extends Model
         return $this->users()->where('user_id', auth()->id())->exists();
     }
 }
+ 

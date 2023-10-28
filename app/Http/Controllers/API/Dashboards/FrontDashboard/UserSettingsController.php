@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\helpers\ApiResponse;
-
+use App\Helpers\ApiResponse;
 
 
 class UserSettingsController extends Controller
@@ -109,4 +108,16 @@ class UserSettingsController extends Controller
     {
         //
     }
+        public function getUserType()
+    {
+    //    return ApiResponse::sendResponse(200, 'Data found',  \request()->header());
+        $user = Auth::user();
+        // dd($user);
+        if (isset($user->company_name)) {
+            return ApiResponse::sendResponse(200, 'Data found',  ['type' => 'company']);
+        } else {
+            return ApiResponse::sendResponse(200, 'Data found',  ['type' => 'employee']);
+        }
+    }
+
 }

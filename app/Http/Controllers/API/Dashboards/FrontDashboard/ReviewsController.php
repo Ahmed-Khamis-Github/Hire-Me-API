@@ -5,10 +5,11 @@ namespace App\Http\Controllers\API\Dashboards\FrontDashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\ApiResponse;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Review;
 use App\Models\Personal_access_token;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ReviewResource;
+use Nette\Utils\Paginator;
 
 class ReviewsController extends Controller
 {
@@ -24,17 +25,32 @@ class ReviewsController extends Controller
 
         $user = Auth::user();
         $id = $user->id;
-
+        $pagination =
+            [
+                2,
+                ['*'],
+                'page'
+            ];
         if (isset($user->company_name)) {
-            $review = new ReviewResource(Review::where('company_id', $id)->get());
-            $review = ReviewResource::collection($review);
+            $paginatedReviews = Review::where('company_id', $id)->paginate(...$pagination);
+            $reviews = ReviewResource::collection($paginatedReviews);
+            $response = [
+                'data' => $reviews,
+                'current_page' => $paginatedReviews->currentPage(),
+                'last_page' => $paginatedReviews->lastPage()
+            ];
         } else {
-            $review = new ReviewResource(Review::where('user_id', $id)->get());
-            $review = ReviewResource::collection($review);
+            $paginatedReviews = Review::where('user_id', $id)->paginate(...$pagination);
+            $reviews = ReviewResource::collection($paginatedReviews);
+            $response = [
+                'data' => $reviews,
+                'current_page' => $paginatedReviews->currentPage(),
+                'last_page' => $paginatedReviews->lastPage()
+            ];
         }
-        
-        if ($review) {
-            return ApiResponse::sendResponse(200, 'Data found', $review);
+
+        if ($reviews) {
+            return ApiResponse::sendResponse(200, 'Data found', $response);
         } else {
             return ApiResponse::sendResponse(404, 'Data not found',  null);
         }
@@ -53,7 +69,6 @@ class ReviewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
     private function userType()
     {
@@ -70,7 +85,8 @@ class ReviewsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+
     }
 
     /**
@@ -78,7 +94,10 @@ class ReviewsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = Auth::user();
+        $review = Review::find($id);
+        $review->update($request->all());
+        return ApiResponse::sendResponse(200, 'Data found', $review);
     }
 
     /**

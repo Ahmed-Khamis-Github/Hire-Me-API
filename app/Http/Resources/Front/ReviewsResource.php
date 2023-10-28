@@ -20,6 +20,7 @@ class ReviewsResource extends JsonResource
             'rating'=>$this->pivot->rating ,
             'comment'=>$this->pivot->comment,
             'user_id' => $this->pivot->user_id,
+            'date' => $this->pivot->created_at,
         ];
     }
 }
