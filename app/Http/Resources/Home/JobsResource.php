@@ -17,6 +17,9 @@ class JobsResource extends JsonResource
         return [
             'name'=>$this->name ,
             'type'=>$this->type,
+            'logo'=>$this->company->logo,
+            'companyName'=>$this->company->company_name,
+            'type'=>$this->type,
             'location'=>$this->location,
             'postJob'=>$this->created_at,
             // 'number_of_jobs' => $this->count(),

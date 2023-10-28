@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CompanyProfileController extends Controller
 {
+
+    public function  __construct (){
+        $this->middleware('auth:sanctum')->except(['show','share']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -123,7 +128,8 @@ class CompanyProfileController extends Controller
      * addReview to the specified company.
      */
     public function addReview(Request $request, string $id)
-    {
+    {   
+        // return ApiResponse::sendResponse(200, 'Data found',  \request()->header());
         $request->validate([
             'title' => 'required|string',
             'comment' => 'required|string',
@@ -132,6 +138,7 @@ class CompanyProfileController extends Controller
 
         try {
             $company = Company::findOrFail($id);
+            $user = Auth::user();
 
             // Create a new review instance
             $reviewData = new Review([
@@ -139,6 +146,7 @@ class CompanyProfileController extends Controller
                 'name' => $request->input('name', 'Anonymous'),
                 'title' => $request->input('title'),
                 'comment' => $request->input('comment'),
+                'user_id' => $user->id,
             ]);
 
             // Save the review to the company's reviews relationship
@@ -146,7 +154,7 @@ class CompanyProfileController extends Controller
                 'rating' => $request->input('rating'),
                 'title' => $request->input('title'),
                 'comment' => $request->input('comment'),
-                'user_id' => $request->input('user_id'),
+                'user_id' => $user->id,
             ]);
     
             return ApiResponse::sendResponse(201,'Review added successfully', $reviewData);

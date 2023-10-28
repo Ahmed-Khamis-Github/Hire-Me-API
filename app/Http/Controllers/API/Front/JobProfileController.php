@@ -12,6 +12,11 @@ use App\Models\Job;
 
 class JobProfileController extends Controller
 {
+
+    public function  __construct (){
+        $this->middleware('auth:sanctum')->except(['show','share']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -36,7 +41,7 @@ class JobProfileController extends Controller
         //
     }
 
-    /**
+    /** 
      * Display the specified resource.
      */
     public function show(string $id)
