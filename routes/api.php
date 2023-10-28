@@ -82,14 +82,17 @@ Route::resource('dashboard-bookmarks', BookmarksController::class);
 
 // jobs & candidates (amany)
 
-Route::resource('jobs', JobController::class);
+Route::resource('getAllJobs', JobController::class);
 Route::resource('candidates', CandidatesController::class);
 
 //settings (amany)
 
-Route::resource('userSettings', UserSettingsController::class);
-Route::resource('companySettings', CompanySettingsController::class);
+// Route::resource('', UserSettingsController::class);
+// Route::resource('companySettings', userSettingsCompanySettingsController::class);
+Route::get('companySettings', [CompanySettingsController::class , 'index']);
 Route::put('companySettings', [CompanySettingsController::class , 'update']);
+Route::get('userSettings', [UserSettingsController::class , 'index']);
+Route::put('userSettings', [UserSettingsController::class , 'update']);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //route of Home
 

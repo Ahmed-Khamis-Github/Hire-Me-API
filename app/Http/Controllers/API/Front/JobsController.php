@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API\Front;
 
-use App\Helpers\ApiResponse;
+use App\helpers\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Front\JobResource;
+use App\Http\Resources\Front\JobsResource;
 use App\Models\Job;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;

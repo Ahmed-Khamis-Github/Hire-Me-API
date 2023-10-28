@@ -19,8 +19,12 @@ class Company   extends Authenticatable
         'last_name',
         'company_name',
         'email',
-        'password',
-        'email_verified_at'
+        'email_verified_at',
+        'title',
+        'logo',
+        'location',
+        'about',
+      
 
     ];
 
