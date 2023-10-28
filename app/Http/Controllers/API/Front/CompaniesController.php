@@ -17,10 +17,19 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        $companies = Company::with('users')->get();
+        $pagination =
+        [
+            3,
+            ['*'],
+            'page'
+        ];
+
+        $companies = Company::with('users')->paginate(...$pagination);
+
+        $paginate= new BrowseCompaniesResource($companies);
 
         $formattedCompanies = BrowseCompaniesResource::collection($companies);
-    
+
         return ApiResponse::sendResponse(200, '', $formattedCompanies);
     }
 
@@ -47,7 +56,7 @@ class CompaniesController extends Controller
     {
         //
     }
-    
+
 
     /**
      * Show the form for editing the specified resource.

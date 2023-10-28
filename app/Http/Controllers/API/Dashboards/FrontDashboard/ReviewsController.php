@@ -27,22 +27,30 @@ class ReviewsController extends Controller
         $id = $user->id;
         $pagination =
             [
-                5,
+                2,
                 ['*'],
                 'page'
             ];
         if (isset($user->company_name)) {
-            $reviews = Review::where('company_id', $id)->paginate(...$pagination);
-            $review = new ReviewResource($reviews);
-            $review = ReviewResource::collection($review);
+            $paginatedReviews = Review::where('company_id', $id)->paginate(...$pagination);
+            $reviews = ReviewResource::collection($paginatedReviews);
+            $response = [
+                'data' => $reviews,
+                'current_page' => $paginatedReviews->currentPage(),
+                'last_page' => $paginatedReviews->lastPage()
+            ];
         } else {
-            $reviews = Review::where('user_id', $id)->paginate(...$pagination);
-            $review = new ReviewResource($reviews);
-            $review = ReviewResource::collection($review);
+            $paginatedReviews = Review::where('user_id', $id)->paginate(...$pagination);
+            $reviews = ReviewResource::collection($paginatedReviews);
+            $response = [
+                'data' => $reviews,
+                'current_page' => $paginatedReviews->currentPage(),
+                'last_page' => $paginatedReviews->lastPage()
+            ];
         }
 
-        if ($review) {
-            return ApiResponse::sendResponse(200, 'Data found', $reviews);
+        if ($reviews) {
+            return ApiResponse::sendResponse(200, 'Data found', $response);
         } else {
             return ApiResponse::sendResponse(404, 'Data not found',  null);
         }
@@ -61,7 +69,6 @@ class ReviewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
     private function userType()
     {
@@ -78,7 +85,8 @@ class ReviewsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+
     }
 
     /**
@@ -86,7 +94,10 @@ class ReviewsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = Auth::user();
+        $review = Review::find($id);
+        $review->update($request->all());
+        return ApiResponse::sendResponse(200, 'Data found', $review);
     }
 
     /**
