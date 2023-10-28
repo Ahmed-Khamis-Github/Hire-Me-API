@@ -4,14 +4,33 @@ namespace App\Http\Controllers\API\Dashboards\FrontDashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Helpers\ApiResponse;
+use App\Models\User;
+use App\Models\Job;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\JobResource;
+use App\Support\Collection;
 class BookmarksController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:sanctum','ability:employee']);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+		/*
+		the response should contain:
+		company -> logo,company_name,location,job_id
+		job -> name,type,created_at
+		*/
+
+        $user =  Auth::user();
+		$bookmarked_jobs=new JobResource($user->jobs);
+        $bookmarked_jobs=JobResource::collection($bookmarked_jobs)->paginate(2,null,null,'page');
+        return ApiResponse::sendResponse(200, 'Data found',$bookmarked_jobs);
         //
     }
 
@@ -60,6 +79,16 @@ class BookmarksController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user =  Auth::user();
+        $state=$user->jobs()->detach($id);
+        if( $state){
+        return ApiResponse::sendResponse(200, 'The bookmark is deleted successfully',[]);
+        }else{
+        return ApiResponse::sendResponse(400, 'Failed to delete the bookmark',[]);
+
+        }
+
+
+
     }
 }

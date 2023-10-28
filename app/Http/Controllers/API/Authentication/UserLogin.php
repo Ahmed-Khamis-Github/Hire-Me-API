@@ -12,7 +12,7 @@ class UserLogin extends Controller
 {
     public function login(UserLoginRequest $request)
     {
-        
+
 
         $credentials =['email' => $request->email, 'password' => $request->password] ;
 
@@ -27,4 +27,5 @@ class UserLogin extends Controller
             return ApiResponse::sendResponse(401, 'Error with your credentials', null);
         }
     }
+
 }

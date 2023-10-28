@@ -54,6 +54,10 @@ class Job extends Model
         return $this->belongsToMany(User::class,'bookmarks') ;
     }
 
-    
-    
+    public function isBookmarked()
+    {
+        // Check if the authenticated user has bookmarked this job
+        return $this->users()->where('user_id', auth()->id())->exists();
+    }
 }
+ 

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Http\Resources\jobs_candidates_settings\JobsResource;
-use App\Helpers\ApiResponse;
+use App\helpers\ApiResponse;
 
 
 class JobController extends Controller
@@ -15,9 +15,9 @@ class JobController extends Controller
 
 
 
-    public function  __construct (){
-        $this->middleware('auth:sanctum');
-    }
+    // public function  __construct (){
+    //     $this->middleware('auth:sanctum');
+    // }
     /**
      * Display a listing of the resource.
      * 
