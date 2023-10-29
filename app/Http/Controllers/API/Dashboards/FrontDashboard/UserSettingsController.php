@@ -23,8 +23,7 @@ class UserSettingsController extends Controller
     {
 
         $user = Auth::user();
-
-        return $user;
+        return ApiResponse::sendResponse(200, "returned successfully", $user);
 
     }
 
@@ -66,14 +65,39 @@ class UserSettingsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        $id = Auth::user()->id;
-        $user = User::findOrFail($id);
+         
+        $user = Auth::user();
 
-        $user->update($request->all());
+     $storedPassword = $user->password;
 
-        return $user  ;
+        $userProvidedPassword = $request->input('password'); //current
+        $new_password = $request->input('new_password');   //new
+
+
+        if(!empty($new_password)  && !empty($userProvidedPassword)){
+            // return response()->json('no data');
+            if (Hash::check($userProvidedPassword, $storedPassword)) {
+
+                $user->password = Hash::make($request->new_password);
+                $user->save();
+                
+                }
+         else{
+        return ApiResponse::sendResponse(404, "invalid password", []);
+                    
+                }
+        }
+
+        $data = $request->except('password' , 'new_password');
+//    dd($data);
+        $user->update($data);
+    
+
+        return ApiResponse::sendResponse(200, "updated successfully", $user);
+        
+        
 
     }
 

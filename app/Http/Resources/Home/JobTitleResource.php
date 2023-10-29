@@ -16,6 +16,7 @@ class jobTitleResource extends JsonResource
     {
         return [
             "title"=> $this->name,
+            "type"=>$this->type,
 
         ];
     }

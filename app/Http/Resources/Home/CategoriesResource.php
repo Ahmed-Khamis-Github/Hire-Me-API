@@ -32,6 +32,7 @@ class CategoriesResource extends JsonResource
             'name' => $this->name,
             'jobs' => JobTitleResource::Collection($this->jobs),
             'number_of_jobs' => $this->jobs->count(),
+            'id'=>$this->id
         ];
     }
 

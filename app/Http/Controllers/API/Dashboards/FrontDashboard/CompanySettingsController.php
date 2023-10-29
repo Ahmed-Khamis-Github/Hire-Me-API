@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\API\Dashboards\FrontDashboard;
+use Illuminate\Support\Facades\Hash;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Company;
+use App\helpers\ApiResponse;
+
 use Illuminate\Support\Facades\Auth;
 
 
@@ -64,14 +67,39 @@ class CompanySettingsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        $id = Auth::user()->id;
-        $company = Company::findOrFail($id);
+        
+        $user = Auth::user();
 
-        $company->update($request->all());
+     $storedPassword = $user->password;
 
-        return $company  ; 
+        $userProvidedPassword = $request->input('password'); //current
+        $new_password = $request->input('new_password');   //new
+
+
+        if(!empty($new_password)  && !empty($userProvidedPassword)){
+            // return response()->json('no data');
+            if (Hash::check($userProvidedPassword, $storedPassword)) {
+
+                $user->password = Hash::make($request->new_password);
+                $user->save();
+                
+                }
+         else{
+        return ApiResponse::sendResponse(404, "invalid password", []);
+                    
+                }
+        }
+
+        $data = $request->except('password' , 'new_password');
+//    dd($data);
+        $user->update($data);
+    
+
+        return ApiResponse::sendResponse(200, "updated successfully", $user);
+        return $user;
+        
     }
 
     /**
