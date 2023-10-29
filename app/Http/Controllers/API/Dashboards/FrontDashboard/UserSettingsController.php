@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\Helpers\ApiResponse;
+use App\helpers\ApiResponse;
 
 
 class UserSettingsController extends Controller
@@ -67,10 +67,9 @@ class UserSettingsController extends Controller
      */
     public function update(Request $request)
     {
-         
         $user = Auth::user();
 
-     $storedPassword = $user->password;
+       $storedPassword = $user->password;
 
         $userProvidedPassword = $request->input('password'); //current
         $new_password = $request->input('new_password');   //new
@@ -96,7 +95,7 @@ class UserSettingsController extends Controller
     
 
         return ApiResponse::sendResponse(200, "updated successfully", $user);
-        
+        // return $user;
         
 
     }
