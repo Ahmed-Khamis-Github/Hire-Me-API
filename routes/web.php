@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AdminDashboard\CategoryController;
+use App\Http\Controllers\AdminDashboard\JobController;
+use App\Http\Controllers\AdminDashboard\UserController;
+use App\Http\Controllers\AdminDashboard\CompanyController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group(['prefix' => 'dashboard'], function () {
+
+    Route::resource('categories', CategoryController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('companies', CompanyController::class);
+    Route::resource('jobs', JobController::class);
 });
