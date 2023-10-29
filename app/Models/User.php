@@ -28,7 +28,11 @@ class User extends Authenticatable
         'provider_id',
         'provider_token',
         'title',
-        'avatar'
+        'avatar',
+        'nationality',
+        'about',
+        'mobile_number',
+        'cv',
 
     ];
 

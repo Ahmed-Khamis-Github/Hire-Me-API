@@ -5,6 +5,9 @@ namespace App\Http\Controllers\AdminDashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Job;
+use App\Models\Category;
+
 class JobController extends Controller
 {
     /**
@@ -12,7 +15,9 @@ class JobController extends Controller
      */
     public function index()
     {
-        //
+        $jobs = Job::paginate(5);
+
+        return view('dashboard.jobs.index', compact('jobs'));
     }
 
     /**
@@ -20,7 +25,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.jobs.create');
     }
 
     /**
@@ -28,7 +33,22 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'name' => 'required|string|max:255|min:2',
+            'min_salary' => 'required|number|min:2',
+            'max_salary' => 'required|number|min:2',
+            'type' => 'required',
+            'location' => 'required|string',
+
+        ]) ;
+        
+        $data = $request->all();
+		
+		Category::create($data);
+
+		return redirect()->route('dashboard.jobs.index');
+
     }
 
     /**
@@ -36,7 +56,8 @@ class JobController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $job = Job::findOrFail($id);
+        return view('dashboard.jobs.show' , compact('job'));
     }
 
     /**
@@ -44,7 +65,10 @@ class JobController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
+        $job = Job::findOrFail($id);
+        $categories = Category::all();
+        return view('dashboard.jobs.edit' , compact('job' ,'categories'));
     }
 
     /**
@@ -52,7 +76,24 @@ class JobController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255|min:2',
+            'min_salary' => 'required|numeric|min:2',
+            'max_salary' => 'required|numeric|min:2',
+            'type' => 'required',
+            'location' => 'required|string',
+
+        ]) ;
+        $job = JOb::findOrFail($id);
+
+
+        $data = $request->all();
+
+ 
+        $job->update($data);
+
+        return redirect()->route('jobs.index');
+
     }
 
     /**
@@ -60,6 +101,11 @@ class JobController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+     
+        $job = Job::findOrFail($id);
+
+        $job->delete();
+
+        return redirect()->route('jobs.index');     
     }
 }

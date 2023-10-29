@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\paginator;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -34,5 +35,8 @@ class AppServiceProvider extends ServiceProvider
                 ]
             );
         });
+
+        //amany dont clear
+        Paginator::useBootstrap();
     }
 }
