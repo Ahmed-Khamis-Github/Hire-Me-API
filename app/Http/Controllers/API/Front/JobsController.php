@@ -14,7 +14,7 @@ class JobsController extends Controller
 {
 
     public function  __construct (){
-        $this->middleware('auth:sanctum')->except(['index','applyFilters','sort','indexPagination']);
+        $this->middleware('auth:sanctum')->except(['index','applyFilters','sort']);
     }
     
     /** 
@@ -24,16 +24,18 @@ class JobsController extends Controller
     { 
         try {
             // Paginate the results
-            // $perPage = $request->input('per_page', 10);
-            
-            // $jobListings = Job::orderBy('created_at', 'desc')->paginate($perPage);
-            $jobListings = Job::orderBy('created_at', 'desc');
+            $pagination = [10, ['*'], 'page'];
 
-
-            $formattedJobListings = JobResource::collection($jobListings);
+            $paginatedJobs = Job::orderBy('created_at', 'desc')->paginate(...$pagination);
+            $formattedJobListings = JobResource::collection($paginatedJobs);
+            $response = [
+                'data' => $formattedJobListings,
+                'current_page' => $paginatedJobs->currentPage(),
+                'last_page' => $paginatedJobs->lastPage()
+            ];
 
             // Format the job listings
-            return ApiResponse::sendResponse(200, "", $formattedJobListings);
+            return ApiResponse::sendResponse(200, '', $response);
         } catch (ModelNotFoundException $e) {
             return ApiResponse::sendResponse(500, 'An error occurred while fetching job listings');
         }
@@ -81,23 +83,6 @@ class JobsController extends Controller
             
             $query->whereIn('type', $jobTypes);
           }
-        
-        
-        // if ($request->filled('min_salary') && $request->input('max_salary') == 0) {
-        //     $minSalary = $request->input('min_salary');
-        //     $query->where('min_salary', '>=', $minSalary);
-        // }
-        
-        // if ($request->filled('max_salary')) {
-        //     $maxSalary = $request->input('max_salary');
-        //     $query->where('max_salary', '<=', $maxSalary);
-        // }
-
-        // if ($request->filled('min_salary') && $request->filled('max_salary')) {
-        //     $minSalary = $request->input('min_salary');
-        //     $maxSalary = $request->input('max_salary');
-        //     $query->whereRaw('(min_salary <= ? AND max_salary >= ?)', [$maxSalary, $minSalary]);
-        // }
 
         if ($request->filled('min_salary') && $request->filled('max_salary')) {
             $minSalary = $request->input('min_salary');
@@ -110,7 +95,6 @@ class JobsController extends Controller
             $maxSalary = $request->input('max_salary');
             $query->where('max_salary', '<=', $maxSalary);
         }
-        
 
         // Sorting criteria
         $sort = $request->input('sort');
@@ -121,7 +105,6 @@ class JobsController extends Controller
             $query->orderBy('created_at', 'asc');
         }
 
-
         // Paginate the filtered results
         $perPage = $request->input('per_page', 10);
         $jobListings = $query->paginate($perPage);
@@ -130,39 +113,6 @@ class JobsController extends Controller
 
         // Format the filtered job listings
         return ApiResponse::sendResponse(200, "", $formattedJobListings);
-    }
-
-    /**
-     * Sorting the job listing.
-     */
-    // public function sort(Request $request)
-    // {
-    //     // Get the sorting criteria from the request
-    //     $sort = $request->input('sort');
-    
-    //     // Create a new query for jobs
-    //     $query = Job::query();
-    
-    //     // Apply sorting based on the chosen criteria
-    //     if ($sort === 'newest') {
-    //         $query->orderBy('created_at', 'desc');
-    //     } elseif ($sort === 'oldest') {
-    //         $query->orderBy('created_at', 'asc');
-    //     } 
-    //     // Retrieve the sorted jobs
-    //     $sortedJobs = $query->get();
-    //     return ApiResponse::sendResponse(200, '', $sortedJobs);
-    // }
-
-    /**
-     * Using the pagination
-     */
-    public function indexPagination($page)
-    {
-        $perPage = 10;
-        // Retrieve the paginated list of jobs
-        $jobs = Job::paginate($perPage, ['*'], 'page', $page);
-        return ApiResponse::sendResponse(200,'', $jobs);
     }
 
     /**

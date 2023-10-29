@@ -9,6 +9,7 @@ use App\Models\Company;
 use App\Models\Review;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use App\Support\Collection;
 
 class CompaniesController extends Controller
 {
@@ -16,21 +17,18 @@ class CompaniesController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $pagination =
-        [
-            3,
-            ['*'],
-            'page'
-        ];
+    {   
+        $pagination = [3, ['*'], 'page'];
 
-        $companies = Company::with('users')->paginate(...$pagination);
+        $paginatedCompanies = Company::with('users')->paginate(...$pagination);
+            $companies = BrowseCompaniesResource::collection($paginatedCompanies);
+            $response = [
+                'data' => $companies,
+                'current_page' => $paginatedCompanies->currentPage(),
+                'last_page' => $paginatedCompanies->lastPage()
+            ];
 
-        $paginate= new BrowseCompaniesResource($companies);
-
-        $formattedCompanies = BrowseCompaniesResource::collection($companies);
-
-        return ApiResponse::sendResponse(200, '', $formattedCompanies);
+        return ApiResponse::sendResponse(200, '', $response);
     }
 
     /**
