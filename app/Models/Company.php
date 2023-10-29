@@ -24,7 +24,7 @@ class Company   extends Authenticatable
         'logo',
         'location',
         'about',
-      
+
 
     ];
 

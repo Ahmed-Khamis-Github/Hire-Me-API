@@ -18,29 +18,21 @@
         <table class="table m-0">
           <thead>
           <tr>
-            <th>Category ID</th>
+            <th>Question ID</th>
             <th>Name</th>
-            <th>Description</th>
-            <th>Action</th>
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Message</th>
           </tr>
           </thead>
           <tbody>
-            @foreach ($categories as $key => $category)
+            @foreach ($questions as $key => $question)
           <tr>
             <td><a href="pages/examples/invoice.html">{{$key + 1}}</a></td>
-            <td>{{$category->name}}</td>
-            <td><span>{{$category->description}}</span></td>
-            <td>
-              <div class="sparkbar" data-color="#00a65a" data-height="20">
-                <a href="{{route('categories.edit', $category->id)}}" class="btn btn-sm btn-success float-left mr-3">Edit</a>
-                <form method="post" action="{{route('categories.destroy', $category->id)}}">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="btn btn-sm btn-danger float-left" >  <i class="fas fa-trash" >
-                    </i>Delete</button>
-                </form>
-              </div>
-            </td>
+            <td>{{$question->name}}</td>
+            <td><span>{{$question->email}}</span></td>
+            <td>{{$question->subject}}</td>
+            <td><span>{{$question->message}}</span></td>
           </tr>
           @endforeach
 
@@ -51,10 +43,6 @@
       <!-- /.table-responsive -->
     </div>
     <!-- /.card-body -->
-    <div class="card-footer clearfix">
-      <a href="{{route('categories.create')}}" class="btn btn-sm btn-info float-left" >Add new Category</a>
-
-    </div>
     <!-- /.card-footer -->
   </div>
 @endsection
