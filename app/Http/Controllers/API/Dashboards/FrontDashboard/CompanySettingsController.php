@@ -70,7 +70,7 @@ class CompanySettingsController extends Controller
      */
     public function update(Request $request)
     {
-
+        
         $user = Auth::user();
         //socials
 
@@ -87,29 +87,24 @@ class CompanySettingsController extends Controller
 
                 $user->password = Hash::make($request->new_password);
                 $user->save();
-
+                
                 }
 
 
          else{
         return ApiResponse::sendResponse(404, "invalid password", []);
-
+                    
                 }
         }
 
         $data = $request->except('password' , 'new_password');
 //    dd($data);
         $user->update($data);
-
+    
 
         return ApiResponse::sendResponse(200, "updated successfully", $user);
-<<<<<<< HEAD
-        return $user;
-
-=======
         
         
->>>>>>> 03939ade73d4f270f6f653ba57d8337c77647bdd
     }
 
 

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\Contact;
+use App\Events\Job;
+use App\Listeners\AlertContact;
+use App\Listeners\SendJob;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +22,14 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        Job::class=>[
+            SendJob::class,
+             
+         ] ,
+         Contact::class=>[
+            AlertContact::class,
+             
+         ]
     ];
 
     /**

@@ -165,10 +165,12 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Ichtrojan\Otp\OtpServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+
 
 
     ])->toArray(),
@@ -186,6 +188,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Otp' => Ichtrojan\Otp\Otp::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 

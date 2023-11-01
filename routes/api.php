@@ -31,6 +31,9 @@ use App\Http\Controllers\API\Front\EmployeeProfileController;
 use  App\Http\Controllers\API\Dashboards\FrontDashboard\DashboardHomeController;
 use App\Http\Controllers\API\Dashboards\FrontDashboard\ReviewsController;
 use App\Http\Controllers\API\Dashboards\FrontDashboard\BookmarksController;
+use App\Http\Controllers\API\Front\ContactController;
+use App\Http\Controllers\API\Front\NotificationsController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -145,3 +148,8 @@ Route::get('/job-profile/{id}', [JobProfileController::class, 'show']);
 Route::post('/job-profile/{id}/apply', [JobProfileController::class, 'apply']);
 Route::post('/job-profile/{id}/bookmark', [JobProfileController::class, 'bookmark']);
 //  <!-- job profile routes / End -->
+
+
+Route::get('notifications',[NotificationsController::class,'notifications']) ;
+
+Route::post('/contact-us', [ContactController::class, 'contact']);

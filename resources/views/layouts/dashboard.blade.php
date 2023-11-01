@@ -1,4 +1,4 @@
-{{-- @include('sweetalert::alert') --}}
+@include('sweetalert::alert')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +44,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed dark-mode">
-    <div class="wrapper">
+     <div class="wrapper">
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
@@ -207,20 +207,19 @@
                             class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block"></a>
+                        <a href="#" class="d-block">{{ Auth::user()->first_name . " " . Auth::user()->last_name }}</a>
                     </div>
 
-                    {{-- <ul class="dropdown-menu ">
+                    <ul class="dropdown-menu ">
                         <li class="nav-item dropdown-item">
-                            <form action="{{ route('logout') }}" method="POST">
+                            <form >
                                 @csrf
-                                <button class="nav-link" type="submit"
-                                    style="border: none ; outline:none ; background:transparent ; cursor:pointer">Logout</button>
+                                 
                             </form>
                         </li>
-                    </ul> --}}
+                    </ul>
 
-                    <form method="POST" action="">
+                    <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-sm btn-outline-light  ml-3">Logout</button>
 
@@ -236,6 +235,16 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               <li class="nav-item">
+                <a href="{{ route('chatify') }}" target="_blank"
+                    class="nav-link">{{-- to highlight the active page --}}
+
+                    <i class="nav-icon fas fa-user" src=""></i>
+                    <p>
+                        Chat
+                    </p>
+                </a>
+            </li>
                         <li class="nav-item">
                             <a href="{{route('categories.index')}}" target="_blank" class="nav-link">{{-- to highlight the active page --}}
 
@@ -412,7 +421,7 @@
         console.log(userID);
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="{{ asset('build/assets/app-cfd1def4.js') }}"></script>
+    <script src="{{ asset('build/assets/app-2d6afe34.js') }}"></script>
 </body>
 
 </html>

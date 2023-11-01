@@ -20,6 +20,7 @@ class UserRegister extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'name'=>$request->first_name ." " .$request->last_name
         ]);
         $data['token'] = $user->createToken('User')->plainTextToken;
         $data['name'] = $user->first_name . " " .$user->last_name;
