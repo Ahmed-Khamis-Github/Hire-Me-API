@@ -14,7 +14,7 @@ class BrowseCompaniesResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $rating = $this->users->pluck('pivot.rating')->filter()->average();
+        $rating = number_format($this->users->pluck('pivot.rating')->filter()->average(),1);
 
         return [
             'id'=>$this->id ,
