@@ -97,6 +97,21 @@ Route::get('companySettings', [CompanySettingsController::class , 'index']);
 Route::put('companySettings', [CompanySettingsController::class , 'update']);
 Route::get('userSettings', [UserSettingsController::class , 'index']);
 Route::put('userSettings', [UserSettingsController::class , 'update']);
+
+//Skills (amany)
+Route::get('getAllSkills', [UserSettingsController::class , 'getAllSkills']);
+Route::get('getUserSkills', [UserSettingsController::class , 'getUserSkills']);
+Route::post('saveUserSkills', [UserSettingsController::class , 'saveUserSkills']);
+
+//socials (amany)
+Route::get('socials', [UserSettingsController::class , 'getSocials']);
+Route::put('socials', [UserSettingsController::class , 'saveSocials']);
+
+Route::get('cmpSocials', [CompanySettingsController::class , 'getSocials']);
+Route::put('cmpSocials', [CompanySettingsController::class , 'saveSocials']);
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //route of Home
 

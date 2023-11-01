@@ -22,7 +22,7 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'email',
-        'password',
+        // 'password',
         'email_verified_at' ,
         'provider',
         'provider_id',
@@ -33,6 +33,7 @@ class User extends Authenticatable
         'about',
         'mobile_number',
         'cv',
+        'skills'
 
     ];
 
@@ -66,7 +67,7 @@ class User extends Authenticatable
 
     public function socials()
     {
-        return $this->hasMany(Social::class) ;
+        return $this->hasMany(Social::class, 'user_id') ;
     }
 
     public function companies()
