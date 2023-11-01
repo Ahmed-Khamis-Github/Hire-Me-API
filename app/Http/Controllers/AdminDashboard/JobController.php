@@ -42,9 +42,9 @@ class JobController extends Controller
             'location' => 'required|string',
 
         ]) ;
-        
+
         $data = $request->all();
-		
+
 		Category::create($data);
 
 		return redirect()->route('dashboard.jobs.index');
@@ -65,7 +65,7 @@ class JobController extends Controller
      */
     public function edit(string $id)
     {
-        
+
         $job = Job::findOrFail($id);
         $categories = Category::all();
         return view('dashboard.jobs.edit' , compact('job' ,'categories'));
@@ -89,7 +89,7 @@ class JobController extends Controller
 
         $data = $request->all();
 
- 
+
         $job->update($data);
 
         return redirect()->route('jobs.index');
@@ -101,11 +101,11 @@ class JobController extends Controller
      */
     public function destroy(string $id)
     {
-     
+
         $job = Job::findOrFail($id);
 
         $job->delete();
 
-        return redirect()->route('jobs.index');     
+        return redirect()->route('jobs.index');
     }
 }

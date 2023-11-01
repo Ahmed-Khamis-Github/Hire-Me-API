@@ -18,7 +18,7 @@ class HomeController extends Controller
 {
 
     public function categories(){
-        $categories = Category::with('jobs')->get();
+        $categories = Category::with('jobs')->limit(8)->get();
         $getCategories = CategoriesResource::collection($categories);
 
         return ApiResponse::sendResponse(202,"data return successfully",$getCategories);

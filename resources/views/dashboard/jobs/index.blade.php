@@ -1,7 +1,6 @@
 @extends('layouts.dashboard')
 @section('content')
-    <div class="container">
-
+    <div >
         <div class="card">
             <div class="card-header border-transparent">
                 <h2>Jobs</h2>
@@ -37,14 +36,14 @@
                                             <a href="{{ route('jobs.show', $job->id) }}"
                                                 class="btn btn-sm btn-info float-left">Show</a>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <div class="sparkbar" data-color="#00a65a" data-height="20">
-                                                <a href="{{ route('jobs.edit' , $job->id) }}" class="btn btn-sm btn-warning float-left">Edit</a>  
-                                        </div>
-                                    </td>
 
-                                    <td>
+
+                                        <div class="sparkbar" data-color="#00a65a" data-height="20">
+                                                <a href="{{ route('jobs.edit' , $job->id) }}" class="btn btn-sm btn-warning float-left mx-3">Edit</a>
+                                        </div>
+
+
+
                                         <div class="sparkbar" data-color="#00a65a" data-height="20">
                                             <form action="{{ route('jobs.destroy', $job->id) }}" method="post">
                                                 @method('delete')
@@ -71,3 +70,6 @@
           {{ $jobs->links() }}
     </div>
 @endsection
+
+
+

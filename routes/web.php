@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminDashboard\JobController;
 use App\Http\Controllers\AdminDashboard\UserController;
 use App\Http\Controllers\AdminDashboard\CompanyController;
 use App\Http\Controllers\AdminDashboard\QuestionController;
+use App\Http\Controllers\AdminDashboard\SkillController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,4 +29,6 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::resource('companies', CompanyController::class);
     Route::resource('jobs', JobController::class);
     Route::resource('questions', QuestionController::class);
+    Route::resource('skills', SkillController::class);
+
 });

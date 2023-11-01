@@ -41,14 +41,14 @@
                                             <a href="{{ route('users.show', $user->id) }}"
                                                 class="btn btn-sm btn-info float-left">Show</a>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <div class="sparkbar" data-color="#00a65a" data-height="20">
-                                                <a href="{{ route('users.edit' , $user->id) }}" class="btn btn-sm btn-warning float-left">Edit</a>  
-                                        </div>
-                                    </td>
 
-                                    <td>
+
+                                        <div class="sparkbar" data-color="#00a65a" data-height="20">
+                                                <a href="{{ route('users.edit' , $user->id) }}" class="btn btn-sm btn-warning float-left">Edit</a>
+                                        </div>
+
+
+
                                         <div class="sparkbar" data-color="#00a65a" data-height="20">
                                             <form action="{{ route('users.destroy', $user->id) }}" method="post">
                                                 @method('delete')
@@ -64,7 +64,7 @@
                         </tbody>
                     </table>
                 </div>
-               
+
                 <!-- /.table-responsive -->
             </div>
 

@@ -246,6 +246,7 @@
                             </a>
                         </li>
 
+
                         <li class="nav-item">
                             <a href="{{route('jobs.index')}}" class="nav-link">
 
@@ -276,6 +277,15 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="{{route('skills.index')}}" target="_blank" class="nav-link">
+
+                                <i class="nav-icon fas fa-user" src=""></i>
+                                <p>
+                                    Skills
+                                </p>
+                            </a>
+                        </li>
 
                         <li class="nav-item menu-open">
                             <a href="#" class="nav-link ">

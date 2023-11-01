@@ -4,19 +4,16 @@ namespace App\Http\Controllers\AdminDashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
-use Illuminate\Support\Str;
-
-class CategoryController extends Controller
+use App\Models\Skill;
+class SkillController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = Category::all();
-		return view('dashboard.categories.index', compact('categories'));
-
+        $skills = Skill::all();
+		return view('dashboard.skills.index', compact('skills'));
     }
 
     /**
@@ -24,9 +21,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::get();
-        return view('dashboard.categories.create', compact('categories'));
-
+        $skills = Skill::get();
+        return view('dashboard.skills.create', compact('skills'));
     }
 
     /**
@@ -34,12 +30,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $slug = $request->merge([
-            "slug"=>Str::slug($request->name)
-        ]);
+
         $data = $request->all();
-       $category= Category::create($data);
-        return redirect()->route('categories.index');
+       $skill= Skill::create($data);
+        return redirect()->route('skills.index');
     }
 
     /**
@@ -47,22 +41,16 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-
     {
-
-
-
-        $category = Category::findOrFail($id);
-        return View('dashboard.categories.edit', compact('category'));
-
-
+        $skill = Skill::findOrFail($id);
+        return View('dashboard.skills.edit', compact('skill'));
     }
 
     /**
@@ -70,9 +58,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $category = Category::findOrFail($id);
-        $category->update($request->all());
-        return redirect()->route('categories.index');
+        $skill = Skill::findOrFail($id);
+        $skill->update($request->all());
+        return redirect()->route('skills.index');
     }
 
     /**
@@ -80,8 +68,8 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
-        return redirect()->route('categories.index');
+        $skill = Skill::findOrFail($id);
+        $skill->delete();
+        return redirect()->route('skills.index');
     }
 }
