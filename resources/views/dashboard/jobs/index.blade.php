@@ -34,12 +34,12 @@
                                     <td>
                                         <div class="sparkbar" data-color="#00a65a" data-height="20">
                                             <a href="{{ route('jobs.show', $job->id) }}"
-                                                class="btn btn-sm btn-info float-left">Show</a>
+                                                class="btn btn-sm btn-info float-left  ">Show</a>
                                         </div>
 
-
                                         <div class="sparkbar" data-color="#00a65a" data-height="20">
-                                                <a href="{{ route('jobs.edit' , $job->id) }}" class="btn btn-sm btn-warning float-left mx-3">Edit</a>
+                                            <a href="{{ route('jobs.edit', $job->id) }}"
+                                                class="btn btn-sm btn-warning float-left  mx-3">Edit</a>
                                         </div>
 
 
@@ -66,8 +66,8 @@
             <!-- /.card-footer -->
         </div>
 
-          {{-- display pagination  --}}
-          {{ $jobs->links() }}
+        {{-- display pagination  --}}
+        {{ $jobs->links() }}
     </div>
 @endsection
 

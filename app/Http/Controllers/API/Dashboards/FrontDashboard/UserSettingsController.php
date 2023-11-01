@@ -5,6 +5,10 @@ namespace App\Http\Controllers\API\Dashboards\FrontDashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Skill;
+use App\Models\Social;
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Support\Facades\Auth;
 use App\helpers\ApiResponse;
 
@@ -23,7 +27,7 @@ class UserSettingsController extends Controller
     {
 
         $user = Auth::user();
-        return ApiResponse::sendResponse(200, "returned successfully", $user);
+        return $user;
 
     }
 
@@ -69,6 +73,17 @@ class UserSettingsController extends Controller
     {
         $user = Auth::user();
 
+        //skills handling
+        if ($request->has('skills')) {
+            $skillIds = $request->input('skills');
+            $user->skills()->syncWithOutDetaching($skillIds); // Use 'sync' to update the user's skills
+        }
+        //end skills
+
+        //social
+        $this->saveSocials($request);
+
+        //password handling
        $storedPassword = $user->password;
 
         $userProvidedPassword = $request->input('password'); //current
@@ -76,26 +91,29 @@ class UserSettingsController extends Controller
 
 
         if(!empty($new_password)  && !empty($userProvidedPassword)){
-            // return response()->json('no data');
+
             if (Hash::check($userProvidedPassword, $storedPassword)) {
 
                 $user->password = Hash::make($request->new_password);
                 $user->save();
                 
-                }
-         else{
-        return ApiResponse::sendResponse(404, "invalid password", []);
+
+            } else{
+                return ApiResponse::sendResponse(404, "invalid password", []);
                     
                 }
-        }
+            }
+            //end password 
 
-        $data = $request->except('password' , 'new_password');
-//    dd($data);
+
+        $data = $request->except('password' , 'new_password', 'skills');
+       
+         
+
         $user->update($data);
     
 
-        return ApiResponse::sendResponse(200, "updated successfully", $user);
-        // return $user;
+        return ApiResponse::sendResponse(200, "updated successfully", $user , $user->skills , $user->socials);
         
 
     }
@@ -118,5 +136,61 @@ class UserSettingsController extends Controller
             return ApiResponse::sendResponse(200, 'Data found',  ['type' => 'employee']);
         }
     }
+
+    public function getUserSkills(){
+        $user = Auth::user();
+
+        return $user->skills;
+    }
+
+
+    //skills
+    public function getAllSkills(){
+        $skills = Skill::all();
+
+        return $skills;
+    }
+
+    public function saveUserSkills(Request $request) {
+        
+            $user = Auth::user();
+            $skillIds = $request->skill_id;
+        // dd($user);
+            // dd($skillIds);
+            $user->skills()->syncWithoutDetaching($request->skill_id);
+    
+            return $user->skills;            
+    
+    }
+    public function destroySkill($skillId) {
+        $user = Auth::user();
+    
+        // Use the detach method to remove the specified skill from the user's skills
+        $user->skills()->detach($skillId);
+    
+        return $user->skills;
+    }
+    
+    //socials
+    public function getSocials(){
+        $user = Auth::user();
+        $socials = $user->socials;
+        return $socials ; 
+    }
+    public function saveSocials(Request $request){
+
+        $user = Auth::user();
+    
+        $socialData = $request->only(['linkedin_account', 'github_account' , 'twitter_account']);
+        
+        $social = Social::updateOrInsert(
+            ['user_id' => $user->id],
+            $socialData
+        );
+        return $user->socials;   
+    }
+    
+    
+
 
 }

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Company;
+use App\Models\Social;
 use App\helpers\ApiResponse;
 
 use Illuminate\Support\Facades\Auth;
@@ -71,8 +72,10 @@ class CompanySettingsController extends Controller
     {
 
         $user = Auth::user();
+        //socials
 
-     $storedPassword = $user->password;
+        $this->saveSocials($request);
+        $storedPassword = $user->password;
 
         $userProvidedPassword = $request->input('password'); //current
         $new_password = $request->input('new_password');   //new
@@ -86,6 +89,8 @@ class CompanySettingsController extends Controller
                 $user->save();
 
                 }
+
+
          else{
         return ApiResponse::sendResponse(404, "invalid password", []);
 
@@ -98,9 +103,15 @@ class CompanySettingsController extends Controller
 
 
         return ApiResponse::sendResponse(200, "updated successfully", $user);
+<<<<<<< HEAD
         return $user;
 
+=======
+        
+        
+>>>>>>> 03939ade73d4f270f6f653ba57d8337c77647bdd
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -108,5 +119,23 @@ class CompanySettingsController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getSocials(){
+        $user = Auth::user();
+        $socials = $user->socials;
+        return $socials ; 
+    }
+    public function saveSocials(Request $request){
+
+        $user = Auth::user();
+    
+        $socialData = $request->only(['linkedin_account', 'github_account' , 'twitter_account']);
+        
+        $social = Social::updateOrInsert(
+            ['user_id' => $user->id],
+            $socialData
+        );
+        return $user->socials;   
     }
 }

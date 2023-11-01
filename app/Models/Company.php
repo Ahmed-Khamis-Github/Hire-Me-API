@@ -21,6 +21,7 @@ class Company   extends Authenticatable
         'password',
         'email',
         'email_verified_at',
+        'password', 
         'title',
         'logo',
         'location',
