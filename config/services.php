@@ -38,7 +38,13 @@ return [
 
      'stripe'=>[
         'secret'=>env('STRIPE_SECRET')
-     ]
+     ] ,
+
+     'vonage' => [
+        'key' => env('VONAGE_API_KEY'),
+        'secret' => env('VONAGE_API_SECRET'),
+        'sms_from' => env('VONAGE_SMS_FROM'),
+    ],
 
 
 ];

@@ -26,6 +26,7 @@ class Company   extends Authenticatable
         'logo',
         'location',
         'about',
+        'quantity'
 
 
     ];
@@ -44,5 +45,10 @@ class Company   extends Authenticatable
     public function users()
     {
         return $this->belongsToMany(User::class,'reviews')->withPivot(['rating', 'title', 'comment', 'user_id', 'created_at']);
+    }
+
+    public function routeNotificationForVonage($notification)
+    {
+        return $this->mobile_number ;
     }
 }

@@ -6,17 +6,20 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.8",
         "ichtrojan/laravel-otp": "^1.4",
         "laravel/cashier-paddle": "^1.9",
         "laravel/framework": "^10.10",
+        "laravel/nexmo-notification-channel": "^3.2",
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.9",
         "laravel/tinker": "^2.8",
+        "laravel/vonage-notification-channel": "^3.2",
         "munafio/chatify": "^1.6",
         "pusher/pusher-php-server": "^7.2",
         "realrashid/sweet-alert": "^7.1",
-        "stripe/stripe-php": "^12.6"
+        "stripe/stripe-php": "^12.6",
+        "vonage/vonage-laravel": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -22,7 +22,7 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'email',
-        // 'password',
+         'password',
         'email_verified_at' ,
         'provider',
         'provider_id',
@@ -118,5 +118,11 @@ class User extends Authenticatable
     public function getProviderTokenAttribute($value)
     {
         return Crypt::decryptString($value);
+    }
+
+
+    public function routeNotificationForVonage($notification)
+    {
+        return $this->mobile_number ;
     }
 }
