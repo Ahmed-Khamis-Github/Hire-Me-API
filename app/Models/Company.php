@@ -49,6 +49,11 @@ class Company   extends Authenticatable
         return $this->belongsToMany(User::class,'reviews')->withPivot(['rating', 'title', 'comment', 'user_id', 'created_at']);
     }
 
+    public function routeNotificationForVonage($notification)
+    {
+        return $this->mobile_number ;
+    }
+
     public function socials()
     {
         return $this->hasMany(Social::class, 'company_id') ;

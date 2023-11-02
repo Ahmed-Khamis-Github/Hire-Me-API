@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API\Front;
 
-use App\Helpers\ApiResponse;
+use App\helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Front\CompanyResource;
 use App\Models\Company;
@@ -95,7 +95,7 @@ class CompanyProfileController extends Controller
         $user = Auth::user();
 
         if ($user) {
-            
+
             // Find the job you want to bookmark within the company
             $job = $company->jobs()->find($jobId);
 
@@ -128,7 +128,7 @@ class CompanyProfileController extends Controller
      * addReview to the specified company.
      */
     public function addReview(Request $request, string $id)
-    {   
+    {
         // return ApiResponse::sendResponse(200, 'Data found',  \request()->header());
         $request->validate([
             'title' => 'required|string',
@@ -156,7 +156,7 @@ class CompanyProfileController extends Controller
                 'comment' => $request->input('comment'),
                 'user_id' => $user->id,
             ]);
-    
+
             return ApiResponse::sendResponse(201,'Review added successfully', $reviewData);
 
         } catch (ModelNotFoundException $e) {
@@ -172,15 +172,15 @@ class CompanyProfileController extends Controller
         try {
             // $company = Company::where('slug', $slug)->firstOrFail();
             // $company = Company::findOrFail($id);
-    
+
             // $companyData = new CompanyResource($company);
             $shareLink = 'http://127.0.0.1:8000/api/companies/' . $id;
-    
+
             // Return the share link or message as a response
             return ApiResponse::sendResponse(200,'Success', $shareLink);
 
         } catch (ModelNotFoundException $e) {
-            
+
             return ApiResponse::sendResponse(404, 'Company profile not found');
         }
     }

@@ -36,8 +36,9 @@
 
             <td>
               <div class="sparkbar " data-color="#00a65a" data-height="20">
-                <a href="{{route('companies.edit', $company->id)}}" class="btn btn-sm btn-success float-left ">Edit</a>
-                <a href="{{route('companies.show', $company->id)}}" class="btn btn-sm btn-info float-left mx-3">Show</a>
+                <a href="{{route('companies.show', $company->id)}}" class="btn btn-sm btn-info float-left">Show</a>
+                <a href="{{route('companies.edit', $company->id)}}" class="btn btn-sm btn-warning float-left  mx-3">Edit</a>
+
                 <form method="post" action="{{route('companies.destroy', $company->id)}}">
                     @csrf
                     @method('delete')
@@ -53,13 +54,16 @@
           </tbody>
         </table>
       </div>
+
       <!-- /.table-responsive -->
     </div>
+
     <!-- /.card-body -->
     <div class="card-footer clearfix">
       {{-- <a href="{{route('categories.create')}}" class="btn btn-sm btn-info float-left" >Add new Category</a> --}}
 
     </div>
+
     <!-- /.card-footer -->
   </div>
 @endsection

@@ -42,7 +42,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        
+
         $user = User::findOrFail($id);
         return view('dashboard.users.show' , compact('user'));
     }
@@ -53,7 +53,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = User::findOrFail($id);
-       
+
         return view('dashboard.users.edit' , compact('user'));
     }
 
@@ -79,7 +79,7 @@ class UserController extends Controller
 
         $data = $request->all();
 
- 
+
         $user->update($data);
 
         return redirect()->route('users.index');
@@ -94,6 +94,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('users.index');     
+        return redirect()->route('users.index');
     }
 }

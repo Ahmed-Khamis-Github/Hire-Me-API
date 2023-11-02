@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminDashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Skill;
+use App\Http\Requests\CategoryRequest;
 class SkillController extends Controller
 {
     /**
@@ -12,7 +13,7 @@ class SkillController extends Controller
      */
     public function index()
     {
-        $skills = Skill::all();
+        $skills = Skill::paginate(5);
 		return view('dashboard.skills.index', compact('skills'));
     }
 
@@ -28,10 +29,10 @@ class SkillController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
 
-        $data = $request->all();
+        $data = $request->valideted();
        $skill= Skill::create($data);
         return redirect()->route('skills.index');
     }

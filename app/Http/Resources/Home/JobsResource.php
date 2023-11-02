@@ -22,7 +22,7 @@ class JobsResource extends JsonResource
             'type'=>$this->type,
             'location'=>$this->location,
             'postJob'=>$this->created_at,
-            // 'number_of_jobs' => $this->count(),
+            "id"=>$this->id
 
         ];
     }

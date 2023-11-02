@@ -7,13 +7,16 @@
       <div class="form-group row">
         <label for="name" class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-10">
-          <input type="name"name="name" class="form-control" id="inputEmail3" placeholder="E.x Marketing">
+          <input type="text"name="name" class="form-control" id="name" placeholder="E.x Marketing">
+          @error('name')
+          <span class="text-danger">{{ $message }}</span>
+          @enderror
         </div>
       </div>
       <div class="form-group row">
         <label for="description" class="col-sm-2 col-form-label">Description</label>
         <div class="col-sm-10">
-          <input type="description"  name="description"  class="form-control" id="inputPassword3" placeholder=" Description">
+          <input type="text"  name="description"  class="form-control" id="description" placeholder=" Description">
         </div>
       </div>
 

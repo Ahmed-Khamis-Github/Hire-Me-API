@@ -10,6 +10,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\VonageMessage;
+
 
 class JobNotification extends Notification
 {
@@ -34,7 +36,7 @@ class JobNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail','database'];
+        return ['mail','database','vonage'];
     }
 
     /**
@@ -56,6 +58,14 @@ class JobNotification extends Notification
          return  [
             'subject' => ("{$this->user->first_name} applied for a job {$this->job->name}"),
          ];
+    }
+
+    public function toVonage(object $notifiable): VonageMessage
+    {
+        
+        $body= sprintf("{$this->user->first_name} applied for a job {$this->job->name}") ;
+        return (new VonageMessage)
+                    ->content( $body);
     }
 
 
