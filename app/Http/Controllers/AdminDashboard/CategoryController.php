@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use App\Http\Requests\CategoryRequest;
+
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -14,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(5);
 		return view('dashboard.categories.index', compact('categories'));
 
     }
@@ -32,12 +35,12 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $slug = $request->merge([
             "slug"=>Str::slug($request->name)
         ]);
-        $data = $request->all();
+        $data = $request->validated();
        $category= Category::create($data);
         return redirect()->route('categories.index');
     }
@@ -63,6 +66,7 @@ class CategoryController extends Controller
         return View('dashboard.categories.edit', compact('category'));
 
 
+
     }
 
     /**
@@ -70,9 +74,25 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            // other validation rules
+        ]);
+
+        if ($validator->fails()) {
+
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+
+        // \\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         $category = Category::findOrFail($id);
         $category->update($request->all());
-        return redirect()->route('categories.index');
+
+        return redirect()->route('categories.index')->with("message","mahsiah");
+
+
     }
 
     /**

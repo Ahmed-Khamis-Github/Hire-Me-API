@@ -57,13 +57,7 @@ return [
         ],
 
 
-        'avatar_uploads' => [
-            'driver' => 'local',
-            'root' => public_path('images/avatar_image'),
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
-            'throw' => false,
-        ],
+
 
     ],
 

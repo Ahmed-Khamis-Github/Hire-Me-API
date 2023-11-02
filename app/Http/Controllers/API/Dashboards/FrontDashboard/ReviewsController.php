@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\Dashboards\FrontDashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Helpers\ApiResponse;
+use App\helpers\ApiResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Review;
 use App\Models\Personal_access_token;

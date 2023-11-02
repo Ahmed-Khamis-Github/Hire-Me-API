@@ -18,7 +18,13 @@ class HomeController extends Controller
 {
 
     public function categories(){
-        $categories = Category::with('jobs')->limit(8)->get();
+        $categories = Category::limit(8)->get();
+
+        foreach($categories as $category) {
+          $category->load(['jobs' => function($q) {
+            $q->take(2);
+          }]);
+        }
         $getCategories = CategoriesResource::collection($categories);
 
         return ApiResponse::sendResponse(202,"data return successfully",$getCategories);
@@ -27,7 +33,7 @@ class HomeController extends Controller
 
 
     public function listJob(){
-        $jobs = Job::all();
+        $jobs = Job::limit(5)->get();
         $getJobs = JobsResource::collection($jobs);
         return ApiResponse::sendResponse(202,"data return succesfully",$getJobs);
     }

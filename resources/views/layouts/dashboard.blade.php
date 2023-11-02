@@ -55,17 +55,7 @@
          <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
-    </ul>
+
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -194,7 +184,7 @@
         <aside  class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <h4>Hiring platform </h4>
+                <h4 class=text-center>Hiring Platform </h4>
 
             </a>
 
@@ -214,7 +204,7 @@
                         <li class="nav-item dropdown-item">
                             <form >
                                 @csrf
-                                 
+
                             </form>
                         </li>
                     </ul>
@@ -239,7 +229,8 @@
                 <a href="{{ route('chatify') }}" target="_blank"
                     class="nav-link">{{-- to highlight the active page --}}
 
-                    <i class="nav-icon fas fa-user" src=""></i>
+                    <i class="nav-icon fas  fa-envelope" src=""></i>
+
                     <p>
                         Chat
                     </p>
@@ -248,7 +239,9 @@
                         <li class="nav-item">
                             <a href="{{route('categories.index')}}" target="_blank" class="nav-link">{{-- to highlight the active page --}}
 
-                                <i class="nav-icon fas fa-user" src=""></i>
+                                <i class="nav-icon fas fa-th"></i>
+
+
                                 <p>
                                     Categories
                                 </p>
@@ -259,7 +252,9 @@
                         <li class="nav-item">
                             <a href="{{route('jobs.index')}}" class="nav-link">
 
-                                <i class="nav-icon fas fa-th"></i>
+
+                                <i class="nav-icon fas fa-industry" src=""></i>
+
                                 <p>
                                     Jobs
                                 </p>
@@ -268,7 +263,8 @@
 
                         <li class="nav-item">
                             <a href="{{route('companies.index')}}" class="nav-link ">
-                                <i class="nav-icon fas fa-mug-hot"></i>
+                                <i class="nav-icon fas fa-building"></i>
+
                                 <p>
                                     Companies
                                 </p>
@@ -289,7 +285,8 @@
                         <li class="nav-item">
                             <a href="{{route('skills.index')}}" target="_blank" class="nav-link">
 
-                                <i class="nav-icon fas fa-user" src=""></i>
+                                <i class="nav-icon fas fa-file-code" src=""></i>
+
                                 <p>
                                     Skills
                                 </p>
@@ -298,7 +295,7 @@
 
                         <li class="nav-item menu-open">
                             <a href="#" class="nav-link ">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fas fa-bars"></i>
                                 <p>
                                     Settings
                                     <i class="right fas fa-angle-left"></i>
@@ -308,14 +305,16 @@
 
                                 <li class="nav-item">
                                     <a href="{{route('questions.index')}}" class="nav-link ">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="far fa-circle nav-icon "></i>
+
                                         <p>Questions</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Privacy</p>
+                                    <a href="{{route('contact.index')}}" class="nav-link">
+                                        <i class="far fa-address-card nav-icon"></i>
+
+                                        <p>Contact</p>
                                     </a>
                                 </li>
                             </ul>

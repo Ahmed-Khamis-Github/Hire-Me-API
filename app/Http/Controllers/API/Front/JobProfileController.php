@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\Front;
 
 use App\Events\Job as EventsJob;
-use App\Helpers\ApiResponse;
+use App\helpers\ApiResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,20 +42,20 @@ class JobProfileController extends Controller
         //
     }
 
-    /** 
+    /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
         try {
             $job = Job::findOrFail($id);
-    
+
             $jobData = new JobResource($job);
-    
+
             return ApiResponse::sendResponse(200, "", $jobData);
-    
+
         } catch (ModelNotFoundException $e) {
-    
+
             return ApiResponse::sendResponse(404, 'Job data not found');
         }
     }
@@ -91,12 +91,12 @@ class JobProfileController extends Controller
     {
         try {
             $shareLink = 'http://127.0.0.1:8000/api/jobs/' . $id;
-    
+
             // Return the share link or message as a response
             return ApiResponse::sendResponse(200,'Success', $shareLink);
 
         } catch (ModelNotFoundException $e) {
-            
+
             return ApiResponse::sendResponse(404, 'Job profile not found');
         }
     }
@@ -108,7 +108,7 @@ class JobProfileController extends Controller
     {
         try {
             $user = Auth::user();
-            
+
             // Find the job you want to bookmark
             $job = Job::findOrFail($id);
 
@@ -134,7 +134,7 @@ class JobProfileController extends Controller
      */
     public function apply(string $jobId)
     {
-        try { 
+        try {
             // Find the job you want to apply for
             $job = Job::findOrFail($jobId);
             $user = Auth::user();

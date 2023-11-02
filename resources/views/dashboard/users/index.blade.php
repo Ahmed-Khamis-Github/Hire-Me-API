@@ -24,8 +24,8 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Title</th>
-                                <th>Avatar</th>
-                                <th class="text-center">Action</th>
+                                {{-- <th>Avatar</th> --}}
+                                <th >Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,15 +35,15 @@
                                     <td>{{ $user->first_name." ".$user->last_name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->title }}</td>
-                                    <td>{{ $user->avatar }}</td>
-                                    <td>
+                                    {{-- <td>{{ $user->avatar }}</td> --}}
+                                    <td class=d-flex>
                                         <div class="sparkbar" data-color="#00a65a" data-height="20">
                                             <a href="{{ route('users.show', $user->id) }}"
                                                 class="btn btn-sm btn-info float-left">Show</a>
                                         </div>
 
 
-                                        <div class="sparkbar" data-color="#00a65a" data-height="20">
+                                        <div class="sparkbar mx-3" data-color="#00a65a" data-height="20" >
                                                 <a href="{{ route('users.edit' , $user->id) }}" class="btn btn-sm btn-warning float-left">Edit</a>
                                         </div>
 
