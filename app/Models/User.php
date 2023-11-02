@@ -119,4 +119,10 @@ class User extends Authenticatable
     {
         return Crypt::decryptString($value);
     }
+
+
+    public function routeNotificationForVonage($notification)
+    {
+        return $this->mobile_number ;
+    }
 }
