@@ -112,6 +112,7 @@ Route::put('socials', [UserSettingsController::class , 'saveSocials']);
 
 Route::get('cmpSocials', [CompanySettingsController::class , 'getSocials']);
 Route::put('cmpSocials', [CompanySettingsController::class , 'saveSocials']);
+Route::get('userAppliedJobs', [UserSettingsController::class , 'userAppliedJobs']);
 
 
 

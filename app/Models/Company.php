@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,7 +27,8 @@ class Company   extends Authenticatable
         'logo',
         'location',
         'about',
-        'quantity'
+        'quantity',
+        'linkedin_account'
 
 
     ];
@@ -45,5 +47,10 @@ class Company   extends Authenticatable
     public function users()
     {
         return $this->belongsToMany(User::class,'reviews')->withPivot(['rating', 'title', 'comment', 'user_id', 'created_at']);
+    }
+
+    public function socials()
+    {
+        return $this->hasMany(Social::class, 'company_id') ;
     }
 }

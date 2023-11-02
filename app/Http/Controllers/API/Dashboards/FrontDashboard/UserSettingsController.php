@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Facades\Auth;
 use App\helpers\ApiResponse;
+use App\Http\Resources\jobs_candidates_settings\JobsResource;
+
 
 
 class UserSettingsController extends Controller
@@ -190,6 +192,23 @@ class UserSettingsController extends Controller
         return $user->socials;   
     }
     
+        
+    // كل الشغلانات اللي قدم عليها اليوزر الفلاني 
+
+    public function  userAppliedJobs(){
+        $user = Auth::user();
+
+        // dd($user);
+
+        $jobs = $user->Apply()->get();
+
+        $data = JobsResource::collection($jobs);
+        return ApiResponse::sendResponse(200, "", $data);
+
+
+        return $data;
+
+    }
     
 
 

@@ -74,7 +74,7 @@ class CompanySettingsController extends Controller
         $user = Auth::user();
         //socials
 
-        $this->saveSocials($request);
+        // $this->saveSocials($request);
         $storedPassword = $user->password;
 
         $userProvidedPassword = $request->input('password'); //current
@@ -116,21 +116,22 @@ class CompanySettingsController extends Controller
         //
     }
 
-    public function getSocials(){
-        $user = Auth::user();
-        $socials = $user->socials;
-        return $socials ; 
-    }
-    public function saveSocials(Request $request){
-
-        $user = Auth::user();
-    
-        $socialData = $request->only(['linkedin_account', 'github_account' , 'twitter_account']);
+    // public function getSocials(){
+    //     $user = Auth::user();
         
-        $social = Social::updateOrInsert(
-            ['user_id' => $user->id],
-            $socialData
-        );
-        return $user->socials;   
-    }
+    //     return $socials ; 
+    // }
+    // public function saveSocials(Request $request){
+
+    //     $company = Auth::user();
+    
+    //     $socialData = $request->only(['linkedin_account']);
+        
+    //     $social = Social::updateOrInsert(
+    //         ['company_id' => $company->id],
+
+    //         $socialData
+    //     );
+    //     return $company->socials;   
+    // }
 }
