@@ -112,6 +112,7 @@ Route::put('socials', [UserSettingsController::class , 'saveSocials']);
 
 Route::get('cmpSocials', [CompanySettingsController::class , 'getSocials']);
 Route::put('cmpSocials', [CompanySettingsController::class , 'saveSocials']);
+Route::get('userAppliedJobs', [UserSettingsController::class , 'userAppliedJobs']);
 
 
 
@@ -129,7 +130,7 @@ Route::get('Home/search',[HomeController::class,'search']);
 Route::get('/profile/{id}',[EmployeeProfileController::class,'show']);
 
 //  <!-- browse companies routes / Start -->
-Route::get('/companies', [CompaniesController::class, 'index']); 
+Route::get('/companies', [CompaniesController::class, 'index']);
 //  <!-- browse companies routes / End -->
 
 //  <!-- browse companies routes / Start -->
@@ -153,3 +154,8 @@ Route::post('/job-profile/{id}/bookmark', [JobProfileController::class, 'bookmar
 Route::get('notifications',[NotificationsController::class,'notifications']) ;
 
 Route::post('/contact-us', [ContactController::class, 'contact']);
+
+//admin details page contact us
+Route::get('/admin-info', [ContactController::class,'getAdmin']);
+
+

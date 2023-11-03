@@ -15,7 +15,9 @@ class SocialResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "social-link"=>$this->profile_link
+            "github"=>$this->github_account,
+            "linkedin"=>$this->linkedin_account,
+            "twitter"=>$this->twitter_account,
         ];
     }
 }

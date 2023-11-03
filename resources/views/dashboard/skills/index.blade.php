@@ -31,7 +31,7 @@
 
             <td>
               <div class="sparkbar" data-color="#00a65a" data-height="20">
-                <a href="{{route('skills.edit', $skill->id)}}" class="btn btn-sm btn-success float-left mr-3">Edit</a>
+                <a href="{{route('skills.edit', $skill->id)}}" class="btn btn-sm btn-warning float-left mr-3">Edit</a>
               </div>
               <form method="post" action="{{route('skills.destroy', $skill->id)}}">
                 @csrf
@@ -48,6 +48,9 @@
         </table>
       </div>
       <!-- /.table-responsive -->
+    </div>
+    <div class="mx-3">
+        {{ $skills->links() }}
     </div>
     <!-- /.card-body -->
     <div class="card-footer clearfix">

@@ -20,4 +20,8 @@ class Social extends Model
     {
         return $this->belongsTo(user::class);
     }
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

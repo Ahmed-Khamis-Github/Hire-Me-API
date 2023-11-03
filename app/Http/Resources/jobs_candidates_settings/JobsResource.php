@@ -15,7 +15,8 @@ class JobsResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'title'=>$this->name ,
+            'id'=>$this->id,
+            'name'=>$this->name ,
             'created_at'=>$this->created_at ,
             'min-salary'=>$this->min_salary ,
             'max-salary'=>$this->max_salary ,

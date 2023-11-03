@@ -13,8 +13,6 @@ use App\helpers\ApiResponse;
 class JobController extends Controller
 {
 
-
-
      public function  __construct (){
       $this->middleware('auth:sanctum');
      }
@@ -48,6 +46,15 @@ class JobController extends Controller
         
         $user= Auth::user();
         // dd($user);
+
+
+        if ($user->quantity > 0) {
+             $user->decrement('quantity');
+         } else {
+            return response()->json(['message' => 'You need to pay to increase your job posting allowance.'], 403);
+        }
+
+
         $request ->merge([
             'company_id'=>$user->id
         ]);
@@ -55,6 +62,8 @@ class JobController extends Controller
 
         // $data->company_id= Auth::id();
         // dd($data);
+
+        
         Job::create($data);
 
         

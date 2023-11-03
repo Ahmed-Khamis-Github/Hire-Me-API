@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API\Front;
 use App\Events\Contact;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
+use App\Models\User;
+use App\helpers\ApiResponse;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -25,5 +27,12 @@ class ContactController extends Controller
         $question->save();
         event(new Contact($question));
 
+    }
+
+    //get admin info
+
+    public function getAdmin(){
+        $admin = User::where('role', 'admin')->with('socials')->get();
+        return ApiResponse::sendResponse(200,"response is sucssefully",$admin);
     }
 }

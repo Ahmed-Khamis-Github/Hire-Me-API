@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('socials', function (Blueprint $table) {
-            $table->dropColumn('profile_link');
-
+        Schema::table('companies', function (Blueprint $table) {
+            $table->integer('quantity')->default(5)->after('logo') ;
         });
     }
 
@@ -22,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('socials', function (Blueprint $table) {
-            $table->string('profile_link')->nullable();
-
+        Schema::table('companies', function (Blueprint $table) {
+            $table->dropColumn('quantity') ;
         });
     }
 };

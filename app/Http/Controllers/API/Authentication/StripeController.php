@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 use stripe;
 use Throwable;
 use App\Helpers\ApiResponse;
+use Illuminate\Support\Facades\Auth;
 
 class StripeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum') ;
+    }
+
+
     public function paymentStripe(Request $request)
     {
         try {
@@ -34,6 +42,12 @@ class StripeController extends Controller
                 'source' => $res->id,
                 'description' => $request->description,
             ]);
+
+            $company = Auth::user() ;
+ 
+           $company->update([
+            'quantity'=>($company->quantity+$request->input('quantity')) 
+           ]) ;
 
             return ApiResponse::sendResponse(200, 'Your payment has been successfully processed ', );
         } catch (Throwable $e) {

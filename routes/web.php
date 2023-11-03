@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminDashboard\UserController;
 use App\Http\Controllers\AdminDashboard\CompanyController;
 use App\Http\Controllers\AdminDashboard\QuestionController;
 use App\Http\Controllers\AdminDashboard\SkillController;
+use App\Http\Controllers\AdminDashboard\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::group(['prefix' => 'dashboard' ,'middleware'=>'user.type'], function () {
+Route::group(['prefix' => 'dashboard' ,'middleware'=>['user.type', 'web']], function () {
 
     Route::resource('categories', CategoryController::class);
     Route::resource('users', UserController::class);
@@ -43,6 +44,7 @@ Route::group(['prefix' => 'dashboard' ,'middleware'=>'user.type'], function () {
     Route::resource('jobs', JobController::class);
     Route::resource('questions', QuestionController::class);
     Route::resource('skills', SkillController::class);
+    Route::resource('contact', ContactController::class);
 
 });
 

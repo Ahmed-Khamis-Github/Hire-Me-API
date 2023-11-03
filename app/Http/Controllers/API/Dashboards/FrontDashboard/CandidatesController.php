@@ -22,29 +22,25 @@ class CandidatesController extends Controller
      */
     public function index()
     {
-        // $user = Auth::user();
-        // dd($user);
-
-        // كل الشغلانات اللي قدم عليها اليوزر الفلاني 
-
-        // $user = User::find(1);
-        // $jobs = $user->Apply()->get();
-        // return $jobs;
-
+    
         //   كل اليوزرز اللي مقدمين علي شغل في الشركه بتاعتي
 
-        // $jobs = Job::where('company_id', auth()->user()->id)->get();
         $jobs = Job::where('company_id', Auth::user()->id)->get();
         $userData = [];
         
         foreach ($jobs as $job) {
+           
             $users = $job->Apply()->get();
+
             $data = CandidatesResource::collection($users);
-            $userData[] = $data;
+           
+
+                $userData[] = $data;
+            
+        
+        
+        return ApiResponse::sendResponse(200, "", $userData );
         }
-        
-        return ApiResponse::sendResponse(200, "", $userData);
-        
 }
     
     /**
@@ -100,6 +96,19 @@ class CandidatesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+         $job = Job::where('company_id', Auth::user()->id)
+        ->where('id', $jobId)
+        ->first();
+    
+        if (!$job) {
+            return "Job not found or you don't have permission to access it.";
+        }
+    
+        $job->Apply()->detach($id);
+    
+        return "Successfully detached user with ID: $id from jobs.";
     }
+    
+
 }
