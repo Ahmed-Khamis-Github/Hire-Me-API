@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Resources\Front;
+
 use DateTime;
 use App\Models\Job;
 use Illuminate\Http\Request;
