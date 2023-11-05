@@ -105,6 +105,7 @@ Route::put('userSettings', [UserSettingsController::class , 'update']);
 Route::get('getAllSkills', [UserSettingsController::class , 'getAllSkills']);
 Route::get('getUserSkills', [UserSettingsController::class , 'getUserSkills']);
 Route::post('saveUserSkills', [UserSettingsController::class , 'saveUserSkills']);
+Route::delete('destroySkill/{id}', [UserSettingsController::class , 'destroySkill']);
 
 //socials (amany)
 Route::get('socials', [UserSettingsController::class , 'getSocials']);

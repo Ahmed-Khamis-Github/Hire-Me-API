@@ -209,7 +209,8 @@ class UserSettingsController extends Controller
         return $data;
 
     }
-    
+
+   
 
 
 }

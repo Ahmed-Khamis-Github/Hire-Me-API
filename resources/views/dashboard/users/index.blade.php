@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('content')
-    <div class="container">
+   
 
         <div class="card">
             <div class="card-header border-transparent">
@@ -74,5 +74,5 @@
         </div>
          {{-- display pagination  --}}
          {{ $users->links() }}
-    </div>
+ 
 @endsection
