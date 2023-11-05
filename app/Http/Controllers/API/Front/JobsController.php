@@ -106,13 +106,18 @@ class JobsController extends Controller
         }
 
         // Paginate the filtered results
-        $perPage = $request->input('per_page', 10);
-        $jobListings = $query->paginate($perPage);
+        $pagination = [2, ['*'], 'page'];
+        $paginatedJobsListings = $query->paginate(...$pagination);
 
-        $formattedJobListings = JobResource::collection($jobListings);
+        $formattedJobListings = JobResource::collection($paginatedJobsListings);
+        $response = [
+            'data' => $formattedJobListings,
+            'current_page' => $paginatedJobsListings->currentPage(),
+            'last_page' => $paginatedJobsListings->lastPage()
+        ];
 
         // Format the filtered job listings
-        return ApiResponse::sendResponse(200, "", $formattedJobListings);
+        return ApiResponse::sendResponse(200, "", $response);
     }
 
     /**
