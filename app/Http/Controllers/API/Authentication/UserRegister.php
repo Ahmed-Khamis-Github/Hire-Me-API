@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API\Authentication;
 
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UserRegisterRequest;
@@ -13,7 +13,7 @@ class UserRegister extends Controller
 {
     public function register(UserRegisterRequest $request)
     {
-         
+
 
         $user = User::create([
             'first_name' => $request->first_name,

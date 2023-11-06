@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Social;
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -70,7 +70,7 @@ class CompanySettingsController extends Controller
      */
     public function update(Request $request)
     {
-        
+
         $user = Auth::user();
         //socials
 
@@ -87,24 +87,24 @@ class CompanySettingsController extends Controller
 
                 $user->password = Hash::make($request->new_password);
                 $user->save();
-                
+
                 }
 
 
          else{
         return ApiResponse::sendResponse(404, "invalid password", []);
-                    
+
                 }
         }
 
         $data = $request->except('password' , 'new_password');
 //    dd($data);
         $user->update($data);
-    
+
 
         return ApiResponse::sendResponse(200, "updated successfully", $user);
-        
-        
+
+
     }
 
 
@@ -118,20 +118,20 @@ class CompanySettingsController extends Controller
 
     // public function getSocials(){
     //     $user = Auth::user();
-        
-    //     return $socials ; 
+
+    //     return $socials ;
     // }
     // public function saveSocials(Request $request){
 
     //     $company = Auth::user();
-    
+
     //     $socialData = $request->only(['linkedin_account']);
-        
+
     //     $social = Social::updateOrInsert(
     //         ['company_id' => $company->id],
 
     //         $socialData
     //     );
-    //     return $company->socials;   
+    //     return $company->socials;
     // }
 }

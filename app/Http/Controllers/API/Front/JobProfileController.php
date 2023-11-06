@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\Front;
 
 use App\Events\Job as EventsJob;
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -152,7 +152,7 @@ class JobProfileController extends Controller
             // Attach the job to the user's applied jobs
             $user->apply()->attach($job);
 
-            // event(new EventsJob($job,$user));
+            event(new EventsJob($job,$user));
 
 
             return ApiResponse::sendResponse(200, 'Application sent successfully');

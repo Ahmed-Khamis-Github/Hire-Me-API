@@ -6,7 +6,7 @@ use App\Events\Contact;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\User;
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller

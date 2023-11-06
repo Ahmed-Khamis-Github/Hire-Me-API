@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API\Front;
 
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Front\JobResource;
 use App\Models\Category;
@@ -16,12 +16,12 @@ class JobsController extends Controller
     public function  __construct (){
         $this->middleware('auth:sanctum')->except(['index','applyFilters','sort']);
     }
-    
-    /** 
+
+    /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    { 
+    {
         try {
             // Paginate the results
             $pagination = [10, ['*'], 'page'];
@@ -56,10 +56,10 @@ class JobsController extends Controller
 
         if ($request->filled('category_name')) {
             $categoryName = $request->input('category_name');
-        
+
             // Find the category ID based on the category name
             $categoryId = Category::where('name', $categoryName)->first();
-        
+
             if ($categoryId) {
                 // Use the found category ID to filter jobs
                 $query->where('category_id', $categoryId->id);
@@ -67,7 +67,7 @@ class JobsController extends Controller
                 return ApiResponse::sendResponse(404,'There are no category with that name.');
             }
         }
-        
+
         if ($request->filled('experience')) {
             $experience = $request->input('experience');
             $query->where('experience', $experience);
@@ -75,12 +75,12 @@ class JobsController extends Controller
 
         if ($request->filled('type')) {
             $jobTypes = $request->input('type');
-            
+
             // The 'type' parameter is expected to be an array, but if it's a string, convert it to an array.
             if (!is_array($jobTypes)) {
               $jobTypes = [$jobTypes];
             }
-            
+
             $query->whereIn('type', $jobTypes);
           }
 
@@ -127,13 +127,13 @@ class JobsController extends Controller
     // {
     //     try {
     //         $job = Job::findOrFail($id);
-    
+
     //         $jobData = new JobResource($job);
-    
+
     //         return ApiResponse::sendResponse(200, "", $jobData);
-    
+
     //     } catch (ModelNotFoundException $e) {
-    
+
     //         return ApiResponse::sendResponse(404, 'Job data not found');
     //     }
     // }

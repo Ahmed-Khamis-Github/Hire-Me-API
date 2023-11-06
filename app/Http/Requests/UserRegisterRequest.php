@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
  use Illuminate\Foundation\Http\FormRequest;
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 use Illuminate\Contracts\Validation\Validator;
  use Illuminate\Validation\ValidationException;
 

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\skill;
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 use App\Http\Resources\EmployeeProfile\EmployeeResource;
 
 

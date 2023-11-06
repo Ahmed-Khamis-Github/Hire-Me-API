@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Job;
 use App\Models\JobUser;
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 use App\Http\Resources\jobs_candidates_settings\CandidatesResource;
 
 class CandidatesController extends Controller
@@ -22,27 +22,27 @@ class CandidatesController extends Controller
      */
     public function index()
     {
-    
+
         //   كل اليوزرز اللي مقدمين علي شغل في الشركه بتاعتي
 
         $jobs = Job::where('company_id', Auth::user()->id)->get();
         $userData = [];
-        
+
         foreach ($jobs as $job) {
-           
+
             $users = $job->Apply()->get();
 
             $data = CandidatesResource::collection($users);
-           
+
 
                 $userData[] = $data;
-            
-        
-        
+
+
+
         return ApiResponse::sendResponse(200, "", $userData );
         }
 }
-    
+
     /**
      * Show the form for creating a new resource.
      */
@@ -55,7 +55,7 @@ class CandidatesController extends Controller
      * Store a newly created resource in storage.
      */
 
-    //  when user apply to job  
+    //  when user apply to job
 
     public function store(Request $request)
     {
@@ -100,15 +100,15 @@ class CandidatesController extends Controller
          $job = Job::where('company_id', Auth::user()->id)
         ->where('id', $jobId)
         ->first();
-    
+
         if (!$job) {
             return "Job not found or you don't have permission to access it.";
         }
-    
+
         $job->Apply()->detach($id);
-    
+
         return "Successfully detached user with ID: $id from jobs.";
     }
-    
+
 
 }

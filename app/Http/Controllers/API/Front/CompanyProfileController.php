@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API\Front;
 
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Front\CompanyResource;
 use App\Models\Company;

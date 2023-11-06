@@ -4,7 +4,7 @@ namespace App\Http\Resources\EmployeeProfile;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 use App\Models\User;
 use App\Http\Resources\EmployeeProfile\EmployeeSkills;
 use App\Http\Resources\EmployeeProfile\SocialResource;

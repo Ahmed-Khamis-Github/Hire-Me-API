@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 use Illuminate\Contracts\Validation\Validator;
  use Illuminate\Validation\ValidationException;
 
@@ -25,7 +25,7 @@ class CompanyRegisterRequest extends FormRequest
             throw new ValidationException($validator, $response);
         }
     }
-    
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -35,7 +35,7 @@ class CompanyRegisterRequest extends FormRequest
     {
         return [
             'first_name' => 'required|string|max:50',
-            'last_name' => 'required|string|max:50', 
+            'last_name' => 'required|string|max:50',
             'company_name'=>'required|string|max:50|unique:companies' ,
             'email' => 'required|email|unique:companies',
             'password' => 'required|string|min:8|confirmed',

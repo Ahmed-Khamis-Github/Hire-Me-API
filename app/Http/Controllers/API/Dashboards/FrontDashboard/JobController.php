@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Http\Resources\jobs_candidates_settings\JobsResource;
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 
 
 class JobController extends Controller
@@ -18,7 +18,7 @@ class JobController extends Controller
      }
     /**
      * Display a listing of the resource.
-     * 
+     *
      */
     public function index()
     {
@@ -35,7 +35,7 @@ class JobController extends Controller
      */
     public function create(Request $request)
     {
-        
+
     }
 
     /**
@@ -43,7 +43,7 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $user= Auth::user();
         // dd($user);
 
@@ -63,10 +63,10 @@ class JobController extends Controller
         // $data->company_id= Auth::id();
         // dd($data);
 
-        
+
         Job::create($data);
 
-        
+
         $jobs = JobsResource::collection(Job::all());
         return ApiResponse::sendResponse(200, "", $jobs);
 
@@ -79,10 +79,10 @@ class JobController extends Controller
     public function show(string $id)
     {
         $job = Job::findOrFail($id);
-        
+
         return ApiResponse::sendResponse(200, "", $job);
 
-        // return $job; 
+        // return $job;
     }
 
     /**
@@ -99,7 +99,7 @@ class JobController extends Controller
     public function update(Request $request, string $id)
     {
         $job = Job::findOrFail($id);
-        
+
          $job->update($request->all());
 
             //show all after update

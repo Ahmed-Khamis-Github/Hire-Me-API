@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API\Authentication;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\helpers\ApiResponse ;
+use App\Helpers\ApiResponse ;
 use App\Http\Requests\CompanyLoginRequest;
 
 class CompanyLogin extends Controller

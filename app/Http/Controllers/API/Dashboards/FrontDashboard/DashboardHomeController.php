@@ -24,37 +24,47 @@ class DashboardHomeController extends Controller
         // return ApiResponse::sendResponse(200, 'Data found',  \request()->header());
         $user = Auth::user();
         $id = $user->id;
+
         if (isset($user->company_name)) {
             //to get jobs number
             try {
-                $jobsNumber = Job::where('company_id', $id)->count();
+                $data['jobs_number'] = Job::where('company_id', $id)->count();
             } catch (\Exception $e) {
-                $jobsNumber = 0;
+                $data['jobs_number']  = 0;
             }
-            //to get reviews number
+             $data['jobs_applied'] =0;
+            foreach($user->jobs->all() as $job ){
+                $data['jobs_applied'] += $job->Apply()->where('job_id', $job->id)->count();
+            }
+            // $data['jobs_applied']=$user->jobs;
             try {
-                $reviewsNumber = Review::where('company_id', $id)->count();
+                $data['reviews_number'] = Review::where('company_id', $id)->count();
             } catch (\Exception $e) {
-                $reviewsNumber = 0;
+                $data['reviews_number'] = 0;
             }
+            $data['location'] = $user->location;
+            $data['name'] = $user->company_name;
+            $data['logo'] = $user->logo;
+            $data['about'] = $user->about;
+
         } else {
             //to get number of jobs applied for
             try {
-                $jobsNumber = $user->Apply()->count();
+                $data['jobs_applied']  = $user->Apply()->count();
             } catch (\Exception $e) {
-                $jobsNumber = 0;
+                $data['jobs_applied'] = 0;
             }
             //to get reviews number
             try {
-                $reviewsNumber = Review::where('user_id', $id)->count();
+                $data['reviews_number']= Review::where('user_id', $id)->count();
             } catch (\Exception $e) {
-                $reviewsNumber = 0;
+                $data['reviews_number']= 0;
             }
+            $data['location'] = $user->nationality;
+            $data['name'] = $user->first_name. ' ' . $user->last_name;
+            $data['logo'] = $user->avatar;
+            $data['about'] = $user->about;
         }
-        $data = [
-            'jobs_number' => $jobsNumber,
-            'reviews_number' => $reviewsNumber
-        ];
         return ApiResponse::sendResponse(200, 'Data found', $data);
     }
 

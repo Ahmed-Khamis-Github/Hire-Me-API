@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash ;
-use App\helpers\ApiResponse ;
+use App\Helpers\ApiResponse ;
 use App\Http\Requests\CompanyRegisterRequest;
 
 class CompanyRegister extends Controller

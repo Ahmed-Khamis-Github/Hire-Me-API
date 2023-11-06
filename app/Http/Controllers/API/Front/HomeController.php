@@ -10,7 +10,7 @@ use App\Http\Resources\Home\CategoriesResource;
 use App\Http\Resources\Home\JobsResource;
 use App\Http\Resources\Home\JobTitleResource;
 use App\Http\Resources\Home\JobCitiesResource;
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 
 // use App\Http\Resources\ProductResource;
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\Dashboards\FrontDashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 use App\Models\User;
 use App\Models\Job;
 use Illuminate\Support\Facades\Auth;

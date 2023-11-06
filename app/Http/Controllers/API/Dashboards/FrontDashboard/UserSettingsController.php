@@ -10,7 +10,7 @@ use App\Models\Social;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Facades\Auth;
-use App\helpers\ApiResponse;
+use App\Helpers\ApiResponse;
 use App\Http\Resources\jobs_candidates_settings\JobsResource;
 
 
@@ -98,25 +98,25 @@ class UserSettingsController extends Controller
 
                 $user->password = Hash::make($request->new_password);
                 $user->save();
-                
+
 
             } else{
                 return ApiResponse::sendResponse(404, "invalid password", []);
-                    
+
                 }
             }
-            //end password 
+            //end password
 
 
         $data = $request->except('password' , 'new_password', 'skills');
-       
-         
+
+
 
         $user->update($data);
-    
+
 
         return ApiResponse::sendResponse(200, "updated successfully", $user , $user->skills , $user->socials);
-        
+
 
     }
 
@@ -154,46 +154,46 @@ class UserSettingsController extends Controller
     }
 
     public function saveUserSkills(Request $request) {
-        
+
             $user = Auth::user();
             $skillIds = $request->skill_id;
         // dd($user);
             // dd($skillIds);
             $user->skills()->syncWithoutDetaching($request->skill_id);
-    
-            return $user->skills;            
-    
+
+            return $user->skills;
+
     }
     public function destroySkill($skillId) {
         $user = Auth::user();
-    
+
         // Use the detach method to remove the specified skill from the user's skills
         $user->skills()->detach($skillId);
-    
+
         return $user->skills;
     }
-    
+
     //socials
     public function getSocials(){
         $user = Auth::user();
         $socials = $user->socials;
-        return $socials ; 
+        return $socials ;
     }
     public function saveSocials(Request $request){
 
         $user = Auth::user();
-    
+
         $socialData = $request->only(['linkedin_account', 'github_account' , 'twitter_account']);
-        
+
         $social = Social::updateOrInsert(
             ['user_id' => $user->id],
             $socialData
         );
-        return $user->socials;   
+        return $user->socials;
     }
-    
-        
-    // كل الشغلانات اللي قدم عليها اليوزر الفلاني 
+
+
+    // كل الشغلانات اللي قدم عليها اليوزر الفلاني
 
     public function  userAppliedJobs(){
         $user = Auth::user();
@@ -209,7 +209,7 @@ class UserSettingsController extends Controller
         return $data;
 
     }
-    
+
 
 
 }
