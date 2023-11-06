@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('content')
-    <div >
+    <div>
         <div class="card">
             <div class="card-header border-transparent">
                 <h2>Jobs</h2>
@@ -70,6 +70,3 @@
         {{ $jobs->links() }}
     </div>
 @endsection
-
-
-
