@@ -17,7 +17,7 @@ class JobsResource extends JsonResource
         return [
             'name'=>$this->name ,
             'type'=>$this->type,
-            'logo'=>$this->company->logo,
+            'logo'=>$this->logo,
             'companyName'=>$this->company->company_name,
             'type'=>$this->type,
             'location'=>$this->location,

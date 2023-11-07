@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->decimal('max_salary', 10, 2);
             $table->decimal('min_salary', 10, 2);
             $table->enum('type',['part_time','full_time','internship','temporary','contract']);

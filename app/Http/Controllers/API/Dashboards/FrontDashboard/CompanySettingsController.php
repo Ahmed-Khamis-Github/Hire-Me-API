@@ -98,6 +98,22 @@ class CompanySettingsController extends Controller
         }
 
         $data = $request->except('password' , 'new_password');
+
+        if( $request->hasFile('logo') )
+       {
+        $path = public_path('images/logo');
+        !is_dir($path) &&
+            mkdir($path, 7777, true);
+
+            
+
+
+        $imageName = time() . '.' . $request->file('logo')->extension();
+        $request->file('logo')->move($path, $imageName);
+
+         $data['logo'] = $imageName;
+       }
+
 //    dd($data);
         $user->update($data);
 

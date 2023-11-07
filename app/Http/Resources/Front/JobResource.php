@@ -54,7 +54,7 @@ class JobResource extends JsonResource
             'category_id' => $this->category_id,
             'category_name' => $this->category->name,
             'company_id' => $this->company_id,
-            'company_logo'=>$this->company->logo ,
+            'logo'=>$this->logo ,
             'company_name' => $this->company->company_name,
             'company_rating' => number_format($this->company->users->avg('pivot.rating'), 1),
             'company_nationality' => $this->company->nationality,

@@ -83,7 +83,7 @@ class UserSettingsController extends Controller
         //end skills
 
         //social
-        $this->saveSocials($request);
+        // $this->saveSocials($request);
 
         //password handling
        $storedPassword = $user->password;
@@ -105,12 +105,47 @@ class UserSettingsController extends Controller
 
                 }
             }
-            //end password
+            //end password 
+            
 
 
         $data = $request->except('password' , 'new_password', 'skills');
 
+       if( $request->hasFile('cv') )
+       {
+        $path = public_path('images/cv');
+        !is_dir($path) &&
+            mkdir($path, 7777, true);
 
+            
+
+
+        $imageName = time() . '.' . $request->file('cv')->extension();
+        $request->file('cv')->move($path, $imageName);
+
+         $data['cv'] = $imageName;
+       }
+
+       
+       if( $request->hasFile('avatar') )
+       {
+        $path = public_path('images/avatars');
+        !is_dir($path) &&
+            mkdir($path, 7777, true);
+
+            
+
+
+        $imageName = time() . '.' . $request->file('avatar')->extension();
+        $request->file('avatar')->move($path, $imageName);
+
+         $data['avatar'] = $imageName;
+       }
+
+
+       
+       
+         
 
         $user->update($data);
 

@@ -63,7 +63,17 @@ class JobController extends Controller
         // $data->company_id= Auth::id();
         // dd($data);
 
+        $path = public_path('images/projects');
+        !is_dir($path) &&
+            mkdir($path, 7777, true);
 
+
+        $imageName = time() . '.' . $request->file('logo')->extension();
+        $request->file('logo')->move($path, $imageName);
+
+         $data['logo'] = $imageName;
+
+        
         Job::create($data);
 
 

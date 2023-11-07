@@ -95,11 +95,10 @@ Route::resource('getAllJobs', JobController::class);
 Route::resource('candidates', CandidatesController::class);
 
 //settings (amany)
-
+Route::post('companySettings', [CompanySettingsController::class , 'update']);
 Route::get('companySettings', [CompanySettingsController::class , 'index']);
-Route::put('companySettings', [CompanySettingsController::class , 'update']);
 Route::get('userSettings', [UserSettingsController::class , 'index']);
-Route::put('userSettings', [UserSettingsController::class , 'update']);
+Route::post('userSettings', [UserSettingsController::class , 'update']);
 
 //Skills (amany)
 Route::get('getAllSkills', [UserSettingsController::class , 'getAllSkills']);
