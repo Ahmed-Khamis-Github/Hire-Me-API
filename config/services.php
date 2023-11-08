@@ -36,6 +36,12 @@ return [
         'redirect' => env('APP_URL') . '/api/auth/google/callback',
      ],
 
+     'github' => [
+        'client_id' => env('Github_CLIENT_ID'),
+        'client_secret' => env('Github_CLIENT_SECRET'),
+        'redirect' => env('APP_URL') . '/api/auth/github/callback',
+     ],
+
      'stripe'=>[
         'secret'=>env('STRIPE_SECRET')
      ] ,
