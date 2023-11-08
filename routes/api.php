@@ -131,6 +131,7 @@ Route::get('/profile/{id}',[EmployeeProfileController::class,'show']);
 
 //  <!-- browse companies routes / Start -->
 Route::get('/companies', [CompaniesController::class, 'index']);
+Route::get('/companies/apply', [CompaniesController::class, 'applyFilters']);
 //  <!-- browse companies routes / End -->
 
 //  <!-- browse companies routes / Start -->

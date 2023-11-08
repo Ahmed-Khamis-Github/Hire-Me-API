@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Front;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Front\BrowseCompaniesResource;
+use App\Http\Resources\Front\CompanyResource;
 use App\Models\Company;
 use App\Models\Review;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -34,49 +35,38 @@ class CompaniesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function applyFilters(Request $request)
     {
-        //
-    }
+        // Define the base query for job listings
+        $query = Company::query();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // Apply filters
+        if ($request->filled('company_name')) {
+            $keyword = $request->input('company_name');
+            $query->where('company_name', 'LIKE', '%' . $keyword . '%');
+        }        
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        // Sorting criteria
+        $sort = $request->input('sort');
 
+        if ($sort === 'a-z') {
+            $query->orderBy('company_name', 'asc');
+        } elseif ($sort === 'z-a') {
+            $query->orderBy('company_name', 'desc');
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        // Paginate the filtered results
+        $pagination = [3, ['*'], 'page'];
+        $paginatedCompaniesListings = $query->paginate(...$pagination);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        $formattedCompaniesListings = CompanyResource::collection($paginatedCompaniesListings);
+        $response = [
+            'data' => $formattedCompaniesListings,
+            'current_page' => $paginatedCompaniesListings->currentPage(),
+            'last_page' => $paginatedCompaniesListings->lastPage()
+        ];
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // Format the filtered Companie listings
+        return ApiResponse::sendResponse(200, "", $response);
     }
 }
