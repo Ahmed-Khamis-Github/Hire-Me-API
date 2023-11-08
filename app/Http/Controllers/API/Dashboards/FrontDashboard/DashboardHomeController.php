@@ -46,6 +46,8 @@ class DashboardHomeController extends Controller
             $data['name'] = $user->company_name;
             $data['logo'] = $user->logo;
             $data['about'] = $user->about;
+            $data['quantity'] = $user->quantity;
+			
 
         } else {
             //to get number of jobs applied for
