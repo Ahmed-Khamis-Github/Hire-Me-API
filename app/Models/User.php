@@ -33,7 +33,8 @@ class User extends Authenticatable
         'about',
         'mobile_number',
         'cv',
-        'skills'
+        'skills',
+		'name'
 
     ];
 
