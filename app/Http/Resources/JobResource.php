@@ -19,7 +19,8 @@ class JobResource extends JsonResource
             "name" => $this->name,
             "type" => $this->type,
             "created_at" => $this->created_at,
-            "logo" => $this->company->logo,
+            "logo" => $this->logo,
+            "company_id" => $this->company->id,
             "company_name" => $this->company->company_name,
             "location" => $this->company->location,
             "job_id"=>$this->id
