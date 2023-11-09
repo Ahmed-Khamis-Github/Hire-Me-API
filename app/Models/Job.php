@@ -18,7 +18,8 @@ class Job extends Model
         'category_id',
         'company_id',
         'about',
-        'logo'
+        'logo',
+		'experience'
 
 	];
 
