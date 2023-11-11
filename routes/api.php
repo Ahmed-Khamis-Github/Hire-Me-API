@@ -137,18 +137,22 @@ Route::get('/companies/apply', [CompaniesController::class, 'applyFilters']);
 //  <!-- browse companies routes / Start -->
 Route::get('/jobs', [JobsController::class, 'index']);
 Route::get('/jobs/apply', [JobsController::class, 'applyFilters']);
+Route::get('/markedJobs', [JobsController::class, 'indexAuth'])->name('jobs-authenticated');
+Route::get('/markedJobs/apply', [JobsController::class, 'applyFiltersAuth'])->name('applyFilters-authenticated');
 //  <!-- browse companies routes / End -->
 
 //  <!-- company profile routes / Start -->
 Route::get('/companies/{id}', [CompanyProfileController::class, 'show']);
 Route::post('/companies/{id}/review', [CompanyProfileController::class, 'addReview']);
 Route::post('/companies/{id}/bookmark/{jobId}', [CompanyProfileController::class, 'bookmarkJob']);
+Route::get('/companies-auth/{id}', [CompanyProfileController::class, 'showAuth'])->name('companyProfile-authenticated');
 //  <!-- company profile routes / End -->
 
 //  <!-- job profile routes / Start -->
 Route::get('/job-profile/{id}', [JobProfileController::class, 'show']);
 Route::post('/job-profile/{id}/apply', [JobProfileController::class, 'apply']);
 Route::post('/job-profile/{id}/bookmark', [JobProfileController::class, 'bookmark']);
+Route::get('/job-profile-auth/{id}', [JobProfileController::class, 'showAuth'])->name('jobProfile-authenticated');
 //  <!-- job profile routes / End -->
 
 

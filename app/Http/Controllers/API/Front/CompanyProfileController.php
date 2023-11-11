@@ -46,7 +46,28 @@ class CompanyProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
+{
+    $is_authenticated = isset($request->header()['authorization']);
+
+    if ($is_authenticated) {
+        return redirect()->route('companyProfile-authenticated', ['id' => $id]);
+    }
+
+    try {
+        $company = Company::findOrFail($id);
+
+        $companyData = new CompanyResource($company);
+
+        return ApiResponse::sendResponse(200, "", $companyData);
+
+    } catch (ModelNotFoundException $e) {
+
+        return ApiResponse::sendResponse(404, 'Company data not found');
+    }
+}
+
+public function showAuth(string $id)
 {
     try {
         $company = Company::findOrFail($id);
