@@ -232,11 +232,15 @@ class CompanyProfileController extends Controller
 		}
 		return ApiResponse::sendResponse(201, 'Unfollowed successfully');
 	}
-	/*
-		how to use this function
+	public function toggleFollow($id)
+	{
 		$user = Auth::user();
-		$this->isFollowed($user ,$id)
-	*/
+		if($this->isFollowed($user,$id)){
+			return $this->unfollow($id);
+		}else{
+			return $this->follow($id);
+		}
+	}
 	private function isFollowed($authUser,$company_id){
 		return $authUser->follows()->where('company_id',$company_id)->exists();
 	}
