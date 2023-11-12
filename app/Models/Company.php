@@ -22,7 +22,7 @@ class Company   extends Authenticatable
         'password',
         'email',
         'email_verified_at',
-        'password', 
+        'password',
         'title',
         'logo',
         'location',
@@ -57,5 +57,8 @@ class Company   extends Authenticatable
     public function socials()
     {
         return $this->hasMany(Social::class, 'company_id') ;
+    }
+	public function followers(){
+        return $this->belongsToMany(Company::class,'followers');
     }
 }

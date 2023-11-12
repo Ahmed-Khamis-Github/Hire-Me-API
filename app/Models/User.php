@@ -126,4 +126,7 @@ class User extends Authenticatable
     {
         return $this->mobile_number ;
     }
+	public function follows(){
+        return $this->belongsToMany(Company::class,'followers') ;
+    }
 }

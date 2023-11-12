@@ -146,6 +146,8 @@ Route::get('/companies/{id}', [CompanyProfileController::class, 'show']);
 Route::post('/companies/{id}/review', [CompanyProfileController::class, 'addReview']);
 Route::post('/companies/{id}/bookmark/{jobId}', [CompanyProfileController::class, 'bookmarkJob']);
 Route::get('/companies-auth/{id}', [CompanyProfileController::class, 'showAuth'])->name('companyProfile-authenticated');
+Route::post('/companies/follow/{id}', [CompanyProfileController::class, 'follow']);
+Route::post('/companies/unfollow/{id}', [CompanyProfileController::class, 'unfollow']);
 //  <!-- company profile routes / End -->
 
 //  <!-- job profile routes / Start -->
