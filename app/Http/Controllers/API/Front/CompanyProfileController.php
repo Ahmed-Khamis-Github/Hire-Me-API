@@ -220,6 +220,7 @@ class CompanyProfileController extends Controller
 	public function unfollow($id)
 	{
 		$user = Auth::user();
+
 		if (isset($user->company_name) || !$user) {
 			return;
 		}
@@ -230,5 +231,13 @@ class CompanyProfileController extends Controller
 			return ApiResponse::sendResponse(404, 'Company not found');
 		}
 		return ApiResponse::sendResponse(201, 'Unfollowed successfully');
+	}
+	/*
+		how to use this function
+		$user = Auth::user();
+		$this->isFollowed($user ,$id)
+	*/
+	private function isFollowed($authUser,$company_id){
+		return $authUser->follows()->where('company_id',$company_id)->exists();
 	}
 }
