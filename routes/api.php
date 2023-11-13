@@ -31,6 +31,7 @@ use App\Http\Controllers\API\Front\EmployeeProfileController;
 use  App\Http\Controllers\API\Dashboards\FrontDashboard\DashboardHomeController;
 use App\Http\Controllers\API\Dashboards\FrontDashboard\ReviewsController;
 use App\Http\Controllers\API\Dashboards\FrontDashboard\BookmarksController;
+use App\Http\Controllers\API\Dashboards\FrontDashboard\FollowingController;
 use App\Http\Controllers\API\Front\ContactController;
 use App\Http\Controllers\API\Front\NotificationsController;
 
@@ -86,6 +87,7 @@ Route::resource('dashboard-home', DashboardHomeController::class);
 //reviews
 Route::resource('dashboard-reviews', ReviewsController::class);
 Route::resource('dashboard-bookmarks', BookmarksController::class);
+Route::resource('dashboard-followings', FollowingController::class);
 Route::post('get-user-type', [UserSettingsController::class,'getUserType']);
 
 
