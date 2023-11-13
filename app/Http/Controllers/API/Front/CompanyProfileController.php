@@ -211,7 +211,7 @@ class CompanyProfileController extends Controller
 		try {
 			$user->follows()->attach($id);
 		} catch (\Exception $e) {
-			return ApiResponse::sendResponse(404, 'Company not found');
+		return ApiResponse::sendResponse(404, 'Company not found');
 		}
 		return ApiResponse::sendResponse(201, 'Followed successfully');
 	}
@@ -225,7 +225,6 @@ class CompanyProfileController extends Controller
 			return;
 		}
 		try {
-
 			$user->follows()->detach($id);
 		} catch (\Exception $e) {
 			return ApiResponse::sendResponse(404, 'Company not found');

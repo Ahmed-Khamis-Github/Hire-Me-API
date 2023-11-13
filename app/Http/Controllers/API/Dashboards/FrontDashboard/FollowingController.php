@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Dashboards\FrontDashboard;
 
+use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FollowedCompanyResource;
 use Illuminate\Http\Request;
@@ -23,7 +24,8 @@ class FollowingController extends Controller
 		$user =  Auth::user();
 		$followings=new FollowedCompanyResource($user->follows);
         $followings=FollowedCompanyResource::collection($followings)->paginate(2,null,null,'page');
-				dd($followings);
-        // return FollowedCompanyResource::sendResponse(200, 'Data found',$followings);
+				// dd($followings);
+        return ApiResponse::sendResponse(200, 'Data found',$followings);
 	}
+
 }
