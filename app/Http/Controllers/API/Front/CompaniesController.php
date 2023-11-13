@@ -18,7 +18,7 @@ class CompaniesController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
+    {
         $pagination = [3, ['*'], 'page'];
 
         $paginatedCompanies = Company::with('users')->paginate(...$pagination);
@@ -44,7 +44,7 @@ class CompaniesController extends Controller
         if ($request->filled('company_name')) {
             $keyword = $request->input('company_name');
             $query->where('company_name', 'LIKE', '%' . $keyword . '%');
-        }        
+        }
 
         // Sorting criteria
         $sort = $request->input('sort');
@@ -69,4 +69,5 @@ class CompaniesController extends Controller
         // Format the filtered Companie listings
         return ApiResponse::sendResponse(200, "", $response);
     }
+
 }

@@ -45,7 +45,28 @@ class JobProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
+    {
+        $is_authenticated = isset($request->header()['authorization']);
+
+        if ($is_authenticated) {
+            return redirect()->route('jobProfile-authenticated', ['id' => $id]);
+        }
+
+        try {
+            $job = Job::findOrFail($id);
+
+            $jobData = new JobResource($job);
+
+            return ApiResponse::sendResponse(200, "", $jobData);
+
+        } catch (ModelNotFoundException $e) {
+
+            return ApiResponse::sendResponse(404, 'Job data not found');
+        }
+    }
+
+    public function showAuth(string $id)
     {
         try {
             $job = Job::findOrFail($id);

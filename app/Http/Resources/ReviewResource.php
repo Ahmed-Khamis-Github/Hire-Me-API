@@ -19,7 +19,7 @@ class ReviewResource extends JsonResource
         if ($user) {
             return [
 				'user_name'=>$user->first_name . " " . $user->last_name,
-				'avatar'=> $user->avatar,
+				'logo'=> $user->avatar,
                 'user_id'=>$user_id
 			];
         }else{

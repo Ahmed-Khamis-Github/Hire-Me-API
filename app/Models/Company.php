@@ -59,4 +59,12 @@ class Company   extends Authenticatable
     {
         return $this->hasMany(Social::class, 'company_id') ;
     }
+	public function followers(){
+        return $this->belongsToMany(Company::class,'followers');
+    }
+    public function isFollowed()
+	{
+		// Check if the authenticated user has bookmarked this job
+		return $this->followers()->where('user_id', auth()->id())->exists();
+	}
 }

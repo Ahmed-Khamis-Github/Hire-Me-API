@@ -43,6 +43,7 @@ class CompanyResource extends JsonResource
             'nationality' => $this->nationality,    
             'verified' => $this->verified,
             'rating' => $rating,
+            'is_followed' => $this->isFollowed(),
             'open_jobs' => $openJobs,
             'reviews' => ReviewsResource::collection($this->users),
             'social_links'=>[

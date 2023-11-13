@@ -15,173 +15,233 @@ use Illuminate\Support\Facades\Auth;
 class CompanyProfileController extends Controller
 {
 
-    public function  __construct (){
-        $this->middleware('auth:sanctum')->except(['show','share']);
-    }
+	public function  __construct()
+	{
+		$this->middleware('auth:sanctum')->except(['show', 'share']);
+	}
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+	/**
+	 * Display a listing of the resource.
+	 */
+	public function index()
+	{
+		//
+	}
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+	/**
+	 * Show the form for creating a new resource.
+	 */
+	public function create()
+	{
+		//
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+	/**
+	 * Store a newly created resource in storage.
+	 */
+	public function store(Request $request)
+	{
+		//
+	}
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-{
-    try {
-        $company = Company::findOrFail($id);
+	/**
+	 * Display the specified resource.
+	 */
+	public function show(string $id, Request $request)
+	{
+		$is_authenticated = isset($request->header()['authorization']);
 
-        $companyData = new CompanyResource($company);
+		if ($is_authenticated) {
+			return redirect()->route('companyProfile-authenticated', ['id' => $id]);
+		}
 
-        return ApiResponse::sendResponse(200, "", $companyData);
+		try {
+			$company = Company::findOrFail($id);
 
-    } catch (ModelNotFoundException $e) {
+			$companyData = new CompanyResource($company);
 
-        return ApiResponse::sendResponse(404, 'Company data not found');
-    }
-}
+			return ApiResponse::sendResponse(200, "", $companyData);
+		} catch (ModelNotFoundException $e) {
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+			return ApiResponse::sendResponse(404, 'Company data not found');
+		}
+	}
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+	public function showAuth(string $id)
+	{
+		try {
+			$company = Company::findOrFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+			$companyData = new CompanyResource($company);
 
-    /**
-     * bookmark the specified company from storage.
-     */
-    public function bookmarkJob(Request $request, $companyId, $jobId)
-{
-    try {
-        $company = Company::findOrFail($companyId);
-        $user = Auth::user();
+			return ApiResponse::sendResponse(200, "", $companyData);
+		} catch (ModelNotFoundException $e) {
 
-        if ($user) {
+			return ApiResponse::sendResponse(404, 'Company data not found');
+		}
+	}
 
-            // Find the job you want to bookmark within the company
-            $job = $company->jobs()->find($jobId);
+	/**
+	 * Show the form for editing the specified resource.
+	 */
+	public function edit(string $id)
+	{
+		//
+	}
 
-            if ($job) {
+	/**
+	 * Update the specified resource in storage.
+	 */
+	public function update(Request $request, string $id)
+	{
+		//
+	}
 
-                // Check if the user has already bookmarked the job
-                if ($user->jobs->contains($job)) {
+	/**
+	 * Remove the specified resource from storage.
+	 */
+	public function destroy(string $id)
+	{
+		//
+	}
 
-                    // If the user has already bookmarked the job, unbookmark it
-                    $user->jobs()->detach($job);
-                    return ApiResponse::sendResponse(200, 'Job unbookmarked successfully');
-                } else {
+	/**
+	 * bookmark the specified company from storage.
+	 */
+	public function bookmarkJob(Request $request, $companyId, $jobId)
+	{
+		try {
+			$company = Company::findOrFail($companyId);
+			$user = Auth::user();
 
-                    // If the user hasn't bookmarked the job, add the bookmark
-                    $user->jobs()->attach($job);
-                    return ApiResponse::sendResponse(200, 'Job bookmarked successfully');
-                }
-            } else {
-                return ApiResponse::sendResponse(404, 'Job not found in the company');
-            }
-        } else {
-            return ApiResponse::sendResponse(401, 'User not authenticated');
-        }
-    } catch (ModelNotFoundException $e) {
-        return ApiResponse::sendResponse(404, 'Company not found');
-    }
-}
+			if ($user) {
 
-    /**
-     * addReview to the specified company.
-     */
-    public function addReview(Request $request, string $id)
-    {
-        // return ApiResponse::sendResponse(200, 'Data found',  \request()->header());
-        $request->validate([
-            'title' => 'required|string',
-            'comment' => 'required|string',
-            'rating' => 'required|integer|between:1,5',
-        ]);
+				// Find the job you want to bookmark within the company
+				$job = $company->jobs()->find($jobId);
 
-        try {
-            $company = Company::findOrFail($id);
-            $user = Auth::user();
+				if ($job) {
 
-            // Create a new review instance
-            $reviewData = new Review([
-                'rating' => $request->input('rating'),
-                'name' => $request->input('name', 'Anonymous'),
-                'title' => $request->input('title'),
-                'comment' => $request->input('comment'),
-                'user_id' => $user->id,
-            ]);
+					// Check if the user has already bookmarked the job
+					if ($user->jobs->contains($job)) {
 
-            // Save the review to the company's reviews relationship
-            $company->users()->attach($reviewData, [
-                'rating' => $request->input('rating'),
-                'title' => $request->input('title'),
-                'comment' => $request->input('comment'),
-                'user_id' => $user->id,
-            ]);
+						// If the user has already bookmarked the job, unbookmark it
+						$user->jobs()->detach($job);
+						return ApiResponse::sendResponse(200, 'Job unbookmarked successfully');
+					} else {
 
-            return ApiResponse::sendResponse(201,'Review added successfully', $reviewData);
+						// If the user hasn't bookmarked the job, add the bookmark
+						$user->jobs()->attach($job);
+						return ApiResponse::sendResponse(200, 'Job bookmarked successfully');
+					}
+				} else {
+					return ApiResponse::sendResponse(404, 'Job not found in the company');
+				}
+			} else {
+				return ApiResponse::sendResponse(401, 'User not authenticated');
+			}
+		} catch (ModelNotFoundException $e) {
+			return ApiResponse::sendResponse(404, 'Company not found');
+		}
+	}
 
-        } catch (ModelNotFoundException $e) {
-            return ApiResponse::sendResponse(404, 'Company profile not found');
-        }
-    }
+	/**
+	 * addReview to the specified company.
+	 */
+	public function addReview(Request $request, string $id)
+	{
+		// return ApiResponse::sendResponse(200, 'Data found',  \request()->header());
+		$request->validate([
+			'title' => 'required|string',
+			'comment' => 'required|string',
+			'rating' => 'required|integer|between:1,5',
+		]);
 
-    /**
-     * share to the specified company.
-     */
-    public function share(string $id)
-    {
-        try {
-            // $company = Company::where('slug', $slug)->firstOrFail();
-            // $company = Company::findOrFail($id);
+		try {
+			$company = Company::findOrFail($id);
+			$user = Auth::user();
 
-            // $companyData = new CompanyResource($company);
-            $shareLink = 'http://127.0.0.1:8000/api/companies/' . $id;
+			// Create a new review instance
+			$reviewData = new Review([
+				'rating' => $request->input('rating'),
+				'name' => $request->input('name', 'Anonymous'),
+				'title' => $request->input('title'),
+				'comment' => $request->input('comment'),
+				'user_id' => $user->id,
+			]);
 
-            // Return the share link or message as a response
-            return ApiResponse::sendResponse(200,'Success', $shareLink);
+			// Save the review to the company's reviews relationship
+			$company->users()->attach($reviewData, [
+				'rating' => $request->input('rating'),
+				'title' => $request->input('title'),
+				'comment' => $request->input('comment'),
+				'user_id' => $user->id,
+			]);
 
-        } catch (ModelNotFoundException $e) {
+			return ApiResponse::sendResponse(201, 'Review added successfully', $reviewData);
+		} catch (ModelNotFoundException $e) {
+			return ApiResponse::sendResponse(404, 'Company profile not found');
+		}
+	}
 
-            return ApiResponse::sendResponse(404, 'Company profile not found');
-        }
-    }
+	/**
+	 * share to the specified company.
+	 */
+	public function share(string $id)
+	{
+		try {
+			// $company = Company::where('slug', $slug)->firstOrFail();
+			// $company = Company::findOrFail($id);
+
+			// $companyData = new CompanyResource($company);
+			$shareLink = 'http://127.0.0.1:8000/api/companies/' . $id;
+
+			// Return the share link or message as a response
+			return ApiResponse::sendResponse(200, 'Success', $shareLink);
+		} catch (ModelNotFoundException $e) {
+
+			return ApiResponse::sendResponse(404, 'Company profile not found');
+		}
+	}
+	public function follow($id)
+	{
+		$user = Auth::user();
+		if (isset($user->company_name) || !$user) {
+			return;
+		}
+		try {
+			$user->follows()->attach($id);
+		} catch (\Exception $e) {
+			return ApiResponse::sendResponse(404, 'Company not found');
+		}
+		return ApiResponse::sendResponse(201, 'Followed successfully');
+	}
+
+
+	public function unfollow($id)
+	{
+		$user = Auth::user();
+
+		if (isset($user->company_name) || !$user) {
+			return;
+		}
+		try {
+
+			$user->follows()->detach($id);
+		} catch (\Exception $e) {
+			return ApiResponse::sendResponse(404, 'Company not found');
+		}
+		return ApiResponse::sendResponse(201, 'Unfollowed successfully');
+	}
+	public function toggleFollow($id)
+	{
+		$user = Auth::user();
+		if($this->isFollowed($user,$id)){
+			return $this->unfollow($id);
+		}else{
+			return $this->follow($id);
+		}
+	}
+	private function isFollowed($authUser,$company_id){
+		return $authUser->follows()->where('company_id',$company_id)->exists();
+	}
 }
