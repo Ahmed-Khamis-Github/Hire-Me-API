@@ -22,13 +22,14 @@ class Company   extends Authenticatable
         'password',
         'email',
         'email_verified_at',
-        'password', 
+        'password',
         'title',
         'logo',
         'location',
         'about',
         'quantity',
-        'linkedin_account'
+        'linkedin_account',
+		'mobile_number',
 
 
     ];

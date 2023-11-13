@@ -22,6 +22,7 @@ class CandidatesResource extends JsonResource
             'mobile'=>$this->mobile_number,
             'nationality'=>$this->nationality,
             'cv'=>$this->cv,
+			'id'=>$this->id,
             // 'company'=>$this->Apply->company_id,
             // 'job'=>$this->Apply->job_id,
 

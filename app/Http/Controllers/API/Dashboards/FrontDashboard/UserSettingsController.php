@@ -105,8 +105,8 @@ class UserSettingsController extends Controller
 
                 }
             }
-            //end password 
-            
+            //end password
+
 
 
         $data = $request->except('password' , 'new_password', 'skills');
@@ -117,7 +117,7 @@ class UserSettingsController extends Controller
         !is_dir($path) &&
             mkdir($path, 7777, true);
 
-            
+
 
 
         $imageName = time() . '.' . $request->file('cv')->extension();
@@ -126,14 +126,14 @@ class UserSettingsController extends Controller
          $data['cv'] = $imageName;
        }
 
-       
+
        if( $request->hasFile('avatar') )
        {
         $path = public_path('images/avatars');
         !is_dir($path) &&
             mkdir($path, 7777, true);
 
-            
+
 
 
         $imageName = time() . '.' . $request->file('avatar')->extension();
@@ -143,9 +143,9 @@ class UserSettingsController extends Controller
        }
 
 
-       
-       
-         
+
+
+
 
         $user->update($data);
 
@@ -244,6 +244,13 @@ class UserSettingsController extends Controller
         return $data;
 
     }
+
+	public function headerUser()
+	{
+		$id = Auth::user()->id;
+
+		return ApiResponse::sendResponse(200, "success user", $id);
+	}
 
 
 
