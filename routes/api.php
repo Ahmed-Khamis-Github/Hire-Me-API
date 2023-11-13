@@ -126,6 +126,7 @@ Route::get('Home/jobs',[HomeController::class,'jobs']);
 Route::get('Home/cities',[HomeController::class,'listCities']);
 Route::get('Home/listJob',[HomeController::class,'listJob']) ;
 Route::get('Home/search',[HomeController::class,'search']);
+Route::get('Home/headerUser',[UserSettingsController::class,'headerUser']);
 
 ////////////////////////////////////////////////////////////////////////////////////
 //route of profile user

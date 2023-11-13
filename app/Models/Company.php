@@ -28,7 +28,8 @@ class Company   extends Authenticatable
         'location',
         'about',
         'quantity',
-        'linkedin_account'
+        'linkedin_account',
+		'mobile_number',
 
 
     ];
@@ -61,4 +62,9 @@ class Company   extends Authenticatable
 	public function followers(){
         return $this->belongsToMany(Company::class,'followers');
     }
+    public function isFollowed()
+	{
+		// Check if the authenticated user has bookmarked this job
+		return $this->followers()->where('user_id', auth()->id())->exists();
+	}
 }

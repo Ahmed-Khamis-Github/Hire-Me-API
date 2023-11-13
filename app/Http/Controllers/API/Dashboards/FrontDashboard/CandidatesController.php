@@ -97,15 +97,14 @@ class CandidatesController extends Controller
     public function destroy(string $id)
     {
 
-         $job = Job::where('company_id', Auth::user()->id)
-        ->where('id', $jobId)
+         $job = JobUser::where('id',$id)
         ->first();
 
         if (!$job) {
             return "Job not found or you don't have permission to access it.";
         }
 
-        $job->Apply()->detach($id);
+        $job->delete();
 
         return "Successfully detached user with ID: $id from jobs.";
     }

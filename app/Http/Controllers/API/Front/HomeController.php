@@ -6,17 +6,24 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Job;
+use App\Models\User;
+use App\Models\Company;
 use App\Http\Resources\Home\CategoriesResource;
 use App\Http\Resources\Home\JobsResource;
 use App\Http\Resources\Home\JobTitleResource;
 use App\Http\Resources\Home\JobCitiesResource;
 use App\Helpers\ApiResponse;
+use Illuminate\Support\Facades\Auth;
+
 
 // use App\Http\Resources\ProductResource;
 
 class HomeController extends Controller
 {
 
+	// public function  __construct (){
+    //     $this->middleware('auth:sanctum');
+    // }
     public function categories(){
         $categories = Category::limit(8)->get();
 
@@ -70,9 +77,20 @@ class HomeController extends Controller
     }
     //return number of jobs
     public function jobs(){
-        $numberOfJobs = Job::count();
-        return ApiResponse::sendResponse(200,"",$numberOfJobs);
+		$numberOfJobs = Job::count();
+        $numberOfEmployers = User::where('role', 'user')->count();
+        $numberOfCompanies = Company::count();
+
+        $data = [
+            'numberOfJobs' => $numberOfJobs,
+            'numberOfEmployers' => $numberOfEmployers,
+            'numberOfCompanies' => $numberOfCompanies,
+        ];
+
+        return ApiResponse::sendResponse(200, "Success", $data);
     }
+
+
 
 
 }
