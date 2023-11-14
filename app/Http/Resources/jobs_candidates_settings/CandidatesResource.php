@@ -14,6 +14,7 @@ class CandidatesResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+		$jobName = $this->apply->isNotEmpty() ? $this->Apply->first()->name : null;
         return [
             'f-name'=>$this->first_name ,
             'l-name'=>$this->last_name ,
@@ -23,6 +24,7 @@ class CandidatesResource extends JsonResource
             'nationality'=>$this->nationality,
             'cv'=>$this->cv,
 			'id'=>$this->id,
+			'job' =>$jobName,
             // 'company'=>$this->Apply->company_id,
             // 'job'=>$this->Apply->job_id,
 

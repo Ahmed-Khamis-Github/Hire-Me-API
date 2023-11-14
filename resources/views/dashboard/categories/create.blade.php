@@ -17,6 +17,9 @@
         <label for="description" class="col-sm-2 col-form-label">Description</label>
         <div class="col-sm-10">
           <input type="text"  name="description"  class="form-control" id="description" placeholder=" Description">
+		  @error('description')
+          <span class="text-danger">{{ $message }}</span>
+          @enderror
         </div>
       </div>
 

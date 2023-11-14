@@ -64,6 +64,23 @@ class ContactController extends Controller
 public function update(Request $request, string $id)
 {
     $admin = User::with('socials')->findOrFail($id);
+
+
+	$request->validate([
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'email' => 'required|email',
+        'mobile_number' => 'nullable|string',
+        'github' => 'nullable|string',
+        'linkedin' => 'nullable|string',
+        'twitter' => 'nullable|string',
+    ]);
+
+
+
+
+
+
     $data = $request->all();
 
     // Update the user's data

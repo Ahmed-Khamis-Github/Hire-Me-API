@@ -13,8 +13,6 @@
                 <p class="card-text">Title : {{$user->title }}</p>
                 <p class="card-text">Nationality : {{$user->nationality }}</p>
                 <p class="card-text">Mobile : {{ $user->mobile_number }}</p>
-                <p class="card-text">CV : {{ $user->cv }}</p>
-                <p class="card-text">Avatar : {{ $user->avatar }}</p>
                 <p class="card-text">About : {{ $user->about }}</p>
                 <a href="{{ route('users.index') }}" class="btn btn-primary">Go To All Users</a>
                 <a href="{{ route('users.edit' , $user->id) }}" class="btn btn-warning">Edit This User</a>

@@ -10,18 +10,33 @@
                     <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
                     <div class="col-sm-10">
                         <input name="first_name" type="text" class="form-control" id="first_name" value="{{ $admin->first_name }}" placeholder="First Name">
+						<span class="text-danger">
+							@error('first_name')
+							{{$message}}
+							@enderror
+							</span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
                     <div class="col-sm-10">
                         <input name="last_name" type="text" class="form-control" id="last_name" value="{{ $admin->last_name}}" placeholder="Last Name">
+						<span class="text-danger">
+							@error('last_name')
+							{{$message}}
+							@enderror
+							</span>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="email" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
                         <input name="email" type="email" class="form-control" id="email" value="{{ $admin->email }}" placeholder="User Email">
+						<span class="text-danger">
+							@error('email')
+							{{$message}}
+							@enderror
+							</span>
                     </div>
                 </div>
 
@@ -29,6 +44,11 @@
                     <label for="mobile_number" class="col-sm-2 col-form-label">Mobile</label>
                     <div class="col-sm-10">
                         <input name="mobile_number" type="mobile" class="form-control" id="mobile_number" value="{{ $admin->mobile_number }}" placeholder="Mobile Number">
+						<span class="text-danger">
+							@error('mobile_number')
+							{{$message}}
+							@enderror
+							</span>
                     </div>
                 </div>
 

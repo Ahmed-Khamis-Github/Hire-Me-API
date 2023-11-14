@@ -69,9 +69,9 @@ class UserController extends Controller
             'title' => 'required|string|max:255',
             'mobile_number' => 'required|numeric|digits:10', // Adjust the validation rules for mobile numbers as needed
             'nationality' => 'required|string|max:255',
-            'cv' => 'nullable|file|mimes:pdf,doc,docx', // Optional file upload with allowed file types
+
             'about' => 'nullable|string',
-            'avatar' => 'nullable|file|image|mimes:jpeg,png,gif', // Optional image upload with allowed image formats
+
         ]);
 
         $user = User::findOrFail($id);

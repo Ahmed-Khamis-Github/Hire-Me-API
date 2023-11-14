@@ -5,17 +5,17 @@
     <form method="post" action="{{route('categories.update', $category->id)}}">
         @csrf
         @method('PUT')
-        {{$errors}}
+
         <div class="card-body">
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
                     <input type="text" name="name" class="form-control" id="name" placeholder="E.x Marketing" value="{{ old('name', $category->name) }}">
-                    {{-- <span class="text-danger">
+                    <span class="text-danger">
                         @error('name')
                             {{ $message }}
                         @enderror
-                    </span> --}}
+                    </span>
 
                 </div>
             </div>

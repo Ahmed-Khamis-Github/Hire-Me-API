@@ -36,7 +36,7 @@ class JobNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail','database','vonage'];
+        return ['mail','database'];
     }
 
     /**
@@ -60,16 +60,16 @@ class JobNotification extends Notification
          ];
     }
 
-    public function toVonage(object $notifiable): VonageMessage
-    {
-        
-        $body= sprintf("{$this->user->first_name} applied for a job {$this->job->name}") ;
-        return (new VonageMessage)
-                    ->content( $body);
-    }
+    // public function toVonage(object $notifiable): VonageMessage
+    // {
+
+    //     $body= sprintf("{$this->user->first_name} applied for a job {$this->job->name}") ;
+    //     return (new VonageMessage)
+    //                 ->content( $body);
+    // }
 
 
-    
+
 
     /**
      * Get the array representation of the notification.

@@ -29,13 +29,18 @@ class SkillController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryRequest $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255|min:3',
 
-        $data = $request->valideted();
+        ]) ;
+
+        $data = $request->all();
        $skill= Skill::create($data);
         return redirect()->route('skills.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -57,8 +62,12 @@ class SkillController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+	public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255|min:3',
+
+        ]) ;
         $skill = Skill::findOrFail($id);
         $skill->update($request->all());
         return redirect()->route('skills.index');

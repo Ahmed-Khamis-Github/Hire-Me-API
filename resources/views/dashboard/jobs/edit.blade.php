@@ -15,14 +15,24 @@
                     <div class="col-sm-10">
                         <input name="name" type="text" class="form-control" id="name"
                         value="{{ $job->name }}" placeholder="Job Name">
+						<span class="text-danger">
+							@error('name')
+							{{ $message }}
+							@enderror
+							</span>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="type" class="col-sm-2 col-form-label">Type</label>
                     <div class="col-sm-10">
-                        <input name="type" type="text" class="form-control" id="type" 
+                        <input name="type" type="text" class="form-control" id="type"
                         value="{{ $job->type }}" placeholder="Job Type">
+						<span class="text-danger">
+							@error('type')
+							{{ $message }}
+							@enderror
+							</span>
                     </div>
                 </div>
 
@@ -31,6 +41,11 @@
                     <div class="col-sm-10">
                         <input name="location" type="text" class="form-control" id="loc"
                         value="{{ $job->location }}" placeholder="Job Location">
+						<span class="text-danger">
+							@error('location')
+							{{ $message }}
+							@enderror
+							</span>
                     </div>
                 </div>
 
@@ -39,6 +54,11 @@
                     <div class="col-sm-10">
                         <input name="min_salary" type="number" class="form-control" id="min-sal"
                         value="{{ $job->min_salary }}" placeholder="Job Min Salary">
+						<span class="text-danger">
+							@error('min_salary')
+							{{ $message }}
+							@enderror
+							</span>
                     </div>
                 </div>
 
@@ -47,6 +67,11 @@
                     <div class="col-sm-10">
                         <input name="max_salary" type="number" class="form-control" id="max-sal"
                         value="{{ $job->max_salary }}" placeholder="Job Max Salary">
+						<span class="text-danger">
+							@error('max_salary')
+							{{ $message }}
+							@enderror
+							</span>
                     </div>
                 </div>
 

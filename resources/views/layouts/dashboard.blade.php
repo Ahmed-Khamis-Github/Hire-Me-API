@@ -237,7 +237,7 @@
                 </a>
             </li>
                         <li class="nav-item">
-                            <a href="{{route('categories.index')}}" target="_blank" class="nav-link">{{-- to highlight the active page --}}
+                            <a href="{{route('categories.index')}}"  class="nav-link">{{-- to highlight the active page --}}
 
                                 <i class="nav-icon fas fa-th"></i>
 
@@ -283,7 +283,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{route('skills.index')}}" target="_blank" class="nav-link">
+                            <a href="{{route('skills.index')}}"  class="nav-link">
 
                                 <i class="nav-icon fas fa-file-code" src=""></i>
 

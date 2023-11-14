@@ -13,7 +13,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::get();
+        $questions = Question::paginate(5);
         return view('dashboard.questions.index' , compact('questions'));
     }
 

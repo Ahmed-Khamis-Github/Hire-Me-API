@@ -54,9 +54,14 @@
           </tbody>
         </table>
       </div>
+	  <div class="mx-3">
+		{{ $companies->links() }}
+	</div>
 
       <!-- /.table-responsive -->
     </div>
+
+
 
     <!-- /.card-body -->
     <div class="card-footer clearfix">

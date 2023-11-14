@@ -13,7 +13,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::paginate();
+        $companies = Company::paginate(5);
         return view('dashboard.companies.index', compact('companies'));
 
         }
@@ -41,8 +41,19 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+	public function update(Request $request, string $id)
     {
+        $request->validate([
+
+                'title' => 'required|string|max:255',
+                'company_name' => 'required|string|max:255',
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'location' => 'required|string|max:255',
+                'mobile_number' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+
+        ]);
         $company = company::findOrFail($id);
         $company->update($request->all());
         return redirect()->route('companies.index');

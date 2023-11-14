@@ -42,6 +42,9 @@
       </div>
       <!-- /.table-responsive -->
     </div>
+	<div class="mx-3">
+		{{ $questions->links() }}
+	</div>
     <!-- /.card-body -->
     <!-- /.card-footer -->
   </div>

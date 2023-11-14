@@ -20,7 +20,7 @@ class CandidatesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+	public function index()
     {
 
         //   كل اليوزرز اللي مقدمين علي شغل في الشركه بتاعتي
@@ -32,15 +32,18 @@ class CandidatesController extends Controller
 
             $users = $job->Apply()->get();
 
+
             $data = CandidatesResource::collection($users);
 
+                if($data-> isNotEmpty()){
 
-                $userData[] = $data;
+                    $userData[] = $data;
+                }
 
 
 
-        return ApiResponse::sendResponse(200, "", $userData );
-        }
+            }
+            return ApiResponse::sendResponse(200, "", $userData );
 }
 
     /**

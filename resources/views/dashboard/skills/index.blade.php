@@ -2,7 +2,7 @@
 @section('content')
 <div class="card">
     <div class="card-header border-transparent">
-        <h2>Categories</h2>
+        <h2>Skills</h2>
       <div class="card-tools">
         <button type="button" class="btn btn-tool" data-card-widget="collapse">
           <i class="fas fa-minus"></i>

@@ -35,12 +35,23 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryRequest $request)
+
+	public function store(CategoryRequest $request)
     {
-        $slug = $request->merge([
-            "slug"=>Str::slug($request->name)
-        ]);
-        $data = $request->validated();
+        $request->validate([
+            'name' => 'required|string|max:255|min:2',
+            'description' => 'required|string|min:10'
+
+        ]) ;
+        // $slug = $request->merge([
+        //     "slug"=>Str::slug($request->name)
+        // ]);
+        // $data = $request->validated();
+
+		$data = $request->validated();
+    $data['slug'] = Str::slug($request->name);
+
+
        $category= Category::create($data);
         return redirect()->route('categories.index');
     }
@@ -72,18 +83,13 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+	public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255|min:2',
+            'description' => 'required|string|min:10'
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            // other validation rules
-        ]);
-
-        if ($validator->fails()) {
-
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        ]) ;
 
 
         // \\\\\\\\\\\\\\\\\\\\\\\\\\\\\

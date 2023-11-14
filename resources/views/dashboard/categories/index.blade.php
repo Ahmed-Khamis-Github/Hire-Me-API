@@ -19,21 +19,21 @@
         <table class="table m-0">
           <thead>
           <tr>
-            <th>Category ID</th>
+            {{-- <th>Category ID</th> --}}
             <th>Name</th>
             <th>Description</th>
             <th>Action</th>
           </tr>
           </thead>
           <tbody>
-            @foreach ($categories as $key => $category)
+            @foreach ($categories as $category)
           <tr>
-            <td><a href="pages/examples/invoice.html">{{$key + 1}}</a></td>
+            {{-- <td><a href="pages/examples/invoice.html">{{$key + 1}}</a></td> --}}
             <td>{{$category->name}}</td>
 
             <td><span>{{$category->description}}</span></td>
             <td>
-              <div class="sparkbar" data-color="#00a65a" data-height="20">
+              <div class="sparkbar" data-color="#00a65a" data-height="20" >
                 <a href="{{route('categories.edit', $category->id)}}" class="btn btn-sm btn-warning float-left mr-3">Edit</a>
                 <form method="post" action="{{route('categories.destroy', $category->id)}}">
                     @csrf
